@@ -1,11 +1,11 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
-import smileyGirl from "../images/smiley-little-girl-red-dress.jpg"
+import littleBoyJumping from "../images/cute-little-boy-jumping-on-white-background-814280-removebg-preview.png"
 const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: 87vh;
   background-color: #dedee0;
 
   position: relative;
@@ -48,15 +48,12 @@ const Arrow = styled.div`
   z-index: 1;
   `
   const Image = styled.img`
-  position: absolute;
-  left: 0;
-  right:0;
-  margin: auto;
-  width: 90%;
-  height: 100vh;
+margin-left: 10%;
+  max-width: 100%;
+  height: 100%;
   `
   const Tittle = styled.h1``
-  const Desc = styled.h``
+  const Desc = styled.p``
   const Button = styled.button``
 
 const Slider = () => {
@@ -68,8 +65,8 @@ const Slider = () => {
       <Wrapper>
         
           <Slide>
-              <Image src={smileyGirl}/>
               <ImgContainer>
+              <Image src={littleBoyJumping}/>
               
               </ImgContainer>
               <InfoContainer>
