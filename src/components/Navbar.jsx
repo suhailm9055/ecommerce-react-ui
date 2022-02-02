@@ -1,8 +1,8 @@
-import { Search } from "@material-ui/icons";
+import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import Badge from '@mui/material/Badge';
-import MailIcon from '@mui/icons-material/Mail';
+import { ShoppingBagOutlined } from "@mui/icons-material";
 
 const Container = styled.div`
   height: 60px;
@@ -33,6 +33,8 @@ const Input = styled.input`
 const SearchContainer = styled.div`
   border: 0.5px solid lightgray;
   display: flex;
+  justify-content: center;
+  align-items: center;
   margin-inline:20px;
 `
 const Center = styled.div`
@@ -55,11 +57,13 @@ position: relative;
 const Right = styled.div`
   flex: 1;
   display: flex;
+  justify-content: flex-end;
 `;
 
 const MenuItem = styled.div`
   font-style: 14px;
   cursor: pointer;
+  margin-right: 20px;
 `
 const Navbar = () => {
   return (
@@ -69,19 +73,19 @@ const Navbar = () => {
           <Language>EN</Language>
           <SearchContainer>
             <Input/> 
-            <Search/>
+            <Search style={{color:"gray",fontSize:16}}/>
           </SearchContainer>
         </Left>
         <Center>
           {/* <Logo><br/>
          التوصيل السريع | قطر </Logo> */}
          <LogoEng>
-         Delivering.Qa </LogoEng></Center>
+         deliveRing.qa </LogoEng></Center>
         <Right>
           <MenuItem>Register</MenuItem>
           <MenuItem>Sign In</MenuItem>
           <Badge badgeContent={4} color="primary">
-      <MailIcon color="action" />
+      <ShoppingCartOutlined color="black" />
     </Badge>
         </Right>
       </Wrapper>
