@@ -40,7 +40,16 @@ const Center = styled.div`
   text-align: center;
 `;
 const Logo = styled.h1`
+font-family: 'Noto Kufi Arabic', sans-serif;
+font-size:22px;
+font-weight:900;
+  
+`
+const LogoEng = styled.h1`
+
 font-weight: bold;
+position: relative;
+    /* top: -15px; */
   
 `
 const Right = styled.div`
@@ -63,7 +72,11 @@ const Navbar = () => {
             <Search/>
           </SearchContainer>
         </Left>
-        <Center><Logo>Crazy Shopping.</Logo></Center>
+        <Center>
+          {/* <Logo><br/>
+         التوصيل السريع | قطر </Logo> */}
+         <LogoEng>
+         Delivering.Qa </LogoEng></Center>
         <Right>
           <MenuItem>Register</MenuItem>
           <MenuItem>Sign In</MenuItem>
