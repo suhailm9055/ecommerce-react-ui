@@ -1,17 +1,17 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
-
+import smileyGirl from "../images/smiley-little-girl-red-dress.jpg"
 const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100vh;
-  background-color: red;
+  background-color: #dedee0;
 
   position: relative;
 `;
 const Arrow = styled.div`
-  background-color: #fce3e3;
+  background-color: #50505075;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -29,17 +29,35 @@ const Arrow = styled.div`
   `;
   const Wrapper = styled.div`
       height: 100%;
+      width: 100%;
       
   `
   const Slide = styled.div`
     display: flex;
     align-items: center;
-  `
-  const ImgContainer = styled.div`
+    height: 100%;
+      width: 100%;
+ `  
 
+  
+  const ImgContainer = styled.div`
+    flex: 1;
   `
-  const InfoContainer = styled.div``
-  const Image = styled.img``
+  const InfoContainer = styled.div`
+  flex:1;
+  z-index: 1;
+  `
+  const Image = styled.img`
+  position: absolute;
+  left: 0;
+  right:0;
+  margin: auto;
+  width: 90%;
+  height: 100vh;
+  `
+  const Tittle = styled.h1``
+  const Desc = styled.h``
+  const Button = styled.button``
 
 const Slider = () => {
   return (
@@ -47,6 +65,19 @@ const Slider = () => {
       <Arrow direction="left" >
         <ArrowLeftOutlined />
       </Arrow>
+      <Wrapper>
+        
+          <Slide>
+              <Image src={smileyGirl}/>
+              <ImgContainer>
+              
+              </ImgContainer>
+              <InfoContainer>
+                asdsadasd
+              </InfoContainer>
+          </Slide>
+          
+      </Wrapper>
       <Arrow direction="right" >
         <ArrowRightOutlined />
       </Arrow>
