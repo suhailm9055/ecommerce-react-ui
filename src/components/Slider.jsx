@@ -1,74 +1,73 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import littleBoyJumping from "../images/cute-little-boy-jumping-on-white-background-814280-removebg-preview.png"
+import { sliderItems } from "../data";
+
 const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 87vh;
+  height: 85vh;
   background-color: #dedee0;
-
+  overflow-x: hidden;
   position: relative;
 `;
 const Arrow = styled.div`
-  background-color: #50505075;
+z-index: 2;
+  background-color: #008080a4;
   width: 50px;
   height: 50px;
   border-radius: 50%;
   display: flex;
   position: absolute;
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.6;
   top: 0;
   bottom: 0;
   margin: auto;
   justify-content: center;
   align-items: center;
-  left: ${props=>props.direction === 'left' && "10px"};
-  right: ${props=>props.direction === 'right' && "10px"};
-  `;
-  const Wrapper = styled.div`
-      height: 100%;
-      width: 100%;
-      
-  `
-  const Slide = styled.div`
-    display: flex;
-    align-items: center;
-    height: 100%;
-      width: 100%;
- `  
-
-  
-  const ImgContainer = styled.div`
- 
+  left: ${(props) => props.direction === "left" && "10px"};
+  right: ${(props) => props.direction === "right" && "10px"};
+`;
+const Wrapper = styled.div`
   height: 100%;
-    flex: 1;
-  `
-  const InfoContainer = styled.div`
-  flex:1;
- padding: 50px;
- 
-  `
-  const Image = styled.img`
-margin-left: 10%;
-  
+  display: flex;
+  transform: translateX(${(props) => props.slideIndex * -100}vw);
+`;
+const Slide = styled.div`
+  display: flex;
+  align-items: center;
+  height: 90vh;
+  width: 100vw;
+`;
+const ImgContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  flex: 1;
+`;
+const InfoContainer = styled.div`
+  flex: 1;
+  padding: 40px;
+`;
+const Image = styled.img`
+  margin-left: 10%;
+
   height: 90%;
-  `
-  const Tittle = styled.h2`
-  font-size:70px;
+`;
+const Tittle = styled.h2`
+  font-size: 80px;
   letter-spacing: 3px;
-  text-shadow:3px 3px #72717175;
-  `
-  const Desc = styled.p`
+  text-shadow: 3px 3px #72717175;
+`;
+const Desc = styled.p`
   margin: 50px 0px;
   padding-right: 20px;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 500;
   letter-spacing: 4px;
-  `
-  const Button = styled.button`
-  padding:5px 15px;
+`;
+const Button = styled.button`
+  padding: 5px 15px;
   padding-top: 7px;
   font-size: 20px;
   letter-spacing: 2px;
@@ -76,35 +75,42 @@ margin-left: 10%;
   font-weight: 500;
   background: #008080;
   color: #fff;
-  text-align:center;
+  text-align: center;
   border-color: #00000032;
   cursor: pointer;
-  box-shadow:2px 2px 5px 1px #11111153;
-  
-  `
+  box-shadow: 2px 2px 5px 1px #11111153;
+`;
 
 const Slider = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
+  const handleClick = (direction) => {
+    if (direction === "left") {
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+    } else {
+      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+    }
+  };
+
   return (
     <Container>
-      <Arrow direction="left" >
+      <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
-      <Wrapper>
-        
+      <Wrapper slideIndex={slideIndex}>
+        {sliderItems.map((items) => (
           <Slide>
-              <ImgContainer>
-              <Image src={littleBoyJumping}/>
-              
-              </ImgContainer>
-              <InfoContainer>
-                <Tittle>Best Selling Styles</Tittle>
-                <Desc>DON'T COMPROMISE ON STYLES! GET FLAT 25% OFF FOR NEW ARRIVALS.</Desc>
-                <Button>SHOP NOW</Button>
-              </InfoContainer>
+            <ImgContainer>
+              <Image src={items.img} />
+            </ImgContainer>
+            <InfoContainer>
+              <Tittle>{items.tittle}</Tittle>
+              <Desc>{items.desc}</Desc>
+              <Button>SHOP NOW</Button>
+            </InfoContainer>
           </Slide>
-          
+        ))}
       </Wrapper>
-      <Arrow direction="right" >
+      <Arrow direction="right" onClick={() => handleClick("right")} >
         <ArrowRightOutlined />
       </Arrow>
     </Container>
