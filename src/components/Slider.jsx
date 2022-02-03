@@ -41,20 +41,47 @@ const Arrow = styled.div`
 
   
   const ImgContainer = styled.div`
+ 
+  height: 100%;
     flex: 1;
   `
   const InfoContainer = styled.div`
   flex:1;
-  z-index: 1;
+ padding: 50px;
+ 
   `
   const Image = styled.img`
 margin-left: 10%;
-  max-width: 100%;
-  height: 100%;
+  
+  height: 90%;
   `
-  const Tittle = styled.h1``
-  const Desc = styled.p``
-  const Button = styled.button``
+  const Tittle = styled.h2`
+  font-size:70px;
+  letter-spacing: 3px;
+  text-shadow:3px 3px #72717175;
+  `
+  const Desc = styled.p`
+  margin: 50px 0px;
+  padding-right: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  `
+  const Button = styled.button`
+  padding:5px 15px;
+  padding-top: 7px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  border-radius: 25px;
+  font-weight: 500;
+  background: #008080;
+  color: #fff;
+  text-align:center;
+  border-color: #00000032;
+  cursor: pointer;
+  box-shadow:2px 2px 5px 1px #11111153;
+  
+  `
 
 const Slider = () => {
   return (
@@ -70,7 +97,9 @@ const Slider = () => {
               
               </ImgContainer>
               <InfoContainer>
-                asdsadasd
+                <Tittle>Best Selling Styles</Tittle>
+                <Desc>DON'T COMPROMISE ON STYLES! GET FLAT 25% OFF FOR NEW ARRIVALS.</Desc>
+                <Button>SHOP NOW</Button>
               </InfoContainer>
           </Slide>
           
