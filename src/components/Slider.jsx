@@ -30,6 +30,7 @@ z-index: 2;
   right: ${(props) => props.direction === "right" && "10px"};
 `;
 const Wrapper = styled.div`
+transition: all 1.5s ease;
   height: 100%;
   display: flex;
   transform: translateX(${(props) => props.slideIndex * -100}vw);
