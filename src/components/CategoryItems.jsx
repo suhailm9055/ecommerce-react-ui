@@ -19,12 +19,28 @@ const Info = styled.div`
     top: 0;
     left: 0;
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `
 const Title = styled.h1`
-        
+        margin: 5px 5px;
+        color: white;
 `
 const Button = styled.button`
-    
+    padding: 3px 7px;
+  padding-top: 7px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  /* border-radius: 25px; */
+  font-weight: 500;
+  background: #008080a6;
+  color: #fff;
+  text-align: center;
+  border-color: #00000032;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px 1px #11111153;
 `
 
 const CategoryItems = ({item}) => {

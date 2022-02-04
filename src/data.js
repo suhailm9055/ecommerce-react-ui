@@ -69,10 +69,10 @@ export const categories = [
     },
     {
       id:7,
-      img:"https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",
+      img:"https://static.hopscotch.in/fstatic/product/202101/f6199c2f-3aa9-44e0-b2d5-36df2347a712_large.jpg?version=1611916031344&tr=w-480,c-at_max,n-normal",
     },
     {
       id:8,
       img:"https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
     },
-]
+];

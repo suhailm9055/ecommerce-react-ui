@@ -2,7 +2,6 @@ import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import Badge from '@mui/material/Badge';
-import { ShoppingBagOutlined } from "@mui/icons-material";
 
 const Container = styled.div`
   height: 60px;
