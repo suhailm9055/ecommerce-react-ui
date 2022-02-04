@@ -52,8 +52,8 @@ const InfoContainer = styled.div`
 `;
 const Image = styled.img`
   margin-left: 10%;
-
   height: 90%;
+  object-fit: cover;
 `;
 const Tittle = styled.h2`
   font-size: 80px;

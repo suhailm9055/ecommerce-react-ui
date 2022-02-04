@@ -7,9 +7,9 @@ import Home from './pages/Home';
 function App() {
   return (
     <div>
-      <Announcements/>
+      
       <Home/>
-      <Slider/>
+      
     </div>
   );
 }
