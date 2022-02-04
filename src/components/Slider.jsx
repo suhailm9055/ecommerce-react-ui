@@ -38,7 +38,7 @@ transition: all 1.5s ease;
 const Slide = styled.div`
   display: flex;
   align-items: center;
-  height: 90vh;
+  height: 100%;
   width: 100vw;
 `;
 const ImgContainer = styled.div`
@@ -72,14 +72,19 @@ const Button = styled.button`
   padding-top: 7px;
   font-size: 20px;
   letter-spacing: 2px;
-  border-radius: 25px;
+  /* border-radius: 25px; */
   font-weight: 500;
   background: #008080;
   color: #fff;
   text-align: center;
-  border-color: #00000032;
   cursor: pointer;
+  border: 1px solid #006363;
   box-shadow: 2px 2px 5px 1px #11111153;
+  transition: all 0.5s ease;
+  &:hover{
+    transform:scale(1.1) ;
+  
+  }
 `;
 
 const Slider = () => {
