@@ -15,6 +15,9 @@ background:#f5fbfd;
 const Title= styled.h1`
 font-size:70px;
 margin:10px;
+
+letter-spacing: 3px;
+  text-shadow: 3px 3px #72717175;
 `
 const Description= styled.div`
 font-size:24px;
@@ -25,7 +28,7 @@ margin:10px;
 width:40%;
 height:35px;
 box-shadow: 0px 0px 7px 1px #11111153;
-border: 3px solid #006363;
+border: 1px solid #fff2f25e;
 background:white;
 display:flex;
 justify-content:space-between;
@@ -38,6 +41,7 @@ border:none;
 outline:none;
 flex:6;
 font-size:18px;
+padding-left:20px;
 `
 const Button= styled.button`
 flex:1;
@@ -50,8 +54,7 @@ font-weight: 500;
   color: #fff;
   text-align: center;
   cursor: pointer;
-  border: 2px solid #006363;
-  box-shadow: 2px 2px 5px 1px #11111153;
+  border:none;
   transition: all 0.5s ease;
   &:hover,&:focus{
     transform:scale(1.1) ;
