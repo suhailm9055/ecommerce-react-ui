@@ -1,3 +1,4 @@
+import { red } from "@material-ui/core/colors";
 import { SearchOutlined, ShoppingCartOutlined } from "@material-ui/icons";
 import { FavoriteBorderOutlined } from "@mui/icons-material";
 import React from "react";
@@ -60,7 +61,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 margin: 10px;
-transition: all 0.2s ease;
+transition: all 0.01s ease;
 color:white;
 box-shadow: 2px 2px 5px 1px #11111153;
 &:hover{
@@ -68,9 +69,11 @@ box-shadow: 2px 2px 5px 1px #11111153;
     transform: scale(1.1);
     cursor: pointer;
     border: 1px solid #ffffffce;
-
+ color:${props=>props.color==="red"?"#e60023":'white'};
 }
 `;
+
+
 const Product = ({ item }) => {
   return (
     <>
@@ -84,7 +87,7 @@ const Product = ({ item }) => {
           <Icon>
             <SearchOutlined />
           </Icon>
-          <Icon>
+          <Icon color="red">
             <FavoriteBorderOutlined />
           </Icon>
         </Info>
