@@ -60,17 +60,21 @@ background-color: #04c9c9ce;
 display: flex;
 justify-content: center;
 align-items: center;
-margin: 10px;
-transition: all 0.01s ease;
-color:white;
-box-shadow: 2px 2px 5px 1px #11111153;
-&:hover{
-    background-color: #04c9c9ce ;
-    transform: scale(1.1);
-    cursor: pointer;
-    border: 1px solid #ffffffce;
- color:${props=>props.color==="red"?"#e60023":'white'};
-}
+margin:10px;
+font-weight: 500;
+  background: #008080;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #006363;
+  box-shadow: 2px 2px 5px 1px #11111153;
+  transition: all 0.5s ease;
+  &:hover,&:focus{
+    transform:scale(1.1) ;
+    background: #06d6d6dc;
+    color:${props=>props.color==="red"?"red":"#4d4d4de6"};
+    font-weight: bold;
+  }
 `;
 
 
