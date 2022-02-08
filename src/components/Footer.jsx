@@ -27,7 +27,7 @@ padding-left:10px;
   margin:4px 10px;
   width:70%;`
 const Logo = styled.h1`
-margin:5px 10px;
+margin:0px 10px;
 `
 const SocialContainer = styled.div`
 
@@ -75,8 +75,8 @@ const Footer = () => {
     <>
       <Container>
         <Left>
-          <Logo>deliveRing.qa</Logo>
-          <Desc>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore itaque nobis repellendus quisquam iusto magni esse porro obcaecati placeat quos.</Desc>
+          <Logo>QataRing.qa</Logo>
+          <Desc>Ring is an online Fashion & Lifestyle shopping company founded in Qatar. As of April 2022, Talabat operates in all areas inside Qatar and ensures the fastest delivery in the market</Desc>
           <SocialContainer>
             <SocialIcon color="#2c46a1">
               <Facebook />
@@ -116,7 +116,7 @@ const Footer = () => {
           </Contactitem>
           <Contactitem>
             <MailOutline style={{ marginRight: "10px" }} />
-            ring@delivering.qa
+            ring@qataring.qa
           </Contactitem>
           <Payment src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJT4cLIx-U9ZTPsz_Z6EBE3qjHKxRW5K35-jW2sU3MhpPdaVl8WD1-55D3VJgdkR38fw&usqp=CAU"/>
           

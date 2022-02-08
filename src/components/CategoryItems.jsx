@@ -10,18 +10,20 @@ const Title = styled.h1`
 const Container = styled.div`
     flex: 1;
     margin: 4px;
-    height: 70vh;
+    
     position: relative;
     transition: all 0.5s ease;
     &:hover ${Title}{
      font-size:50px;
+     overflow: hidden;
       
     }
 `
 const Img = styled.img`
     width: 100%;
-    height: 100%;
+    
     object-fit: cover;
+    overflow:hidden;
    
    
     

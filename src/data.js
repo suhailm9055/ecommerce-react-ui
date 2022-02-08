@@ -27,8 +27,8 @@ export const sliderItems = [
 export const categories = [
     {
       id: 1,
-      img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "SHIRT STYLE!",
+      img: "/images/FLORAL CASUAL DRESS GIRLS.jpg",
+      title: "FLORAL CASUALS!",
     },
     {
       id: 2,
@@ -37,8 +37,8 @@ export const categories = [
     },
     {
       id: 3,
-      img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      title: "LIGHT JACKETS",
+      img: "/images/etegi-lastikli-tesettur-kap-tsd0080-indigo-93286-12-B.jpg",
+      title: "WINTER FASHIONS",
     },
   ];
 

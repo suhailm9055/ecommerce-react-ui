@@ -7,6 +7,8 @@ const Container = styled.div`
 display: flex;
 padding: 20px;
 justify-content: space-between;
+overflow: hidden;
+height: 50vh;
 `;
 
 const Categories = () => {

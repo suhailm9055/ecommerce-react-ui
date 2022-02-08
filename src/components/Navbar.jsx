@@ -79,7 +79,7 @@ const Navbar = () => {
           {/* <Logo><br/>
          التوصيل السريع | قطر </Logo> */}
          <LogoEng>
-         deliveRing.qa </LogoEng></Center>
+         QataRing.qa </LogoEng></Center>
         <Right>
           <MenuItem>Register</MenuItem>
           <MenuItem>Sign In</MenuItem>
