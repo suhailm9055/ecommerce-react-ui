@@ -22,6 +22,7 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-size: 28px;
   font-weight: 300;
+  text-align:center;
 `;
 const Form = styled.form`
   display: flex;
@@ -78,7 +79,7 @@ const Register = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
+        <Title>CREATE NEW ACCOUNT</Title>
         <Form>
           <Input placeholder="First Name" />
           <Input placeholder="Last Name" />

@@ -80,10 +80,10 @@ const LinkContainer=styled.div`
     display:flex;
     justify-content:center;
     flex-direction:column;
-    align-items:center
+    align-items:center;
 `
 const Link=styled.a`
-width:100%
+width:100%;
 
 font-size:12px;
 text-decoration:underline;
