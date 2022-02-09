@@ -1,7 +1,11 @@
 import styled from "styled-components"
 
 const Container=styled.div`
-`
+width:100vw;
+height:100vh;
+background:linear-gradient(to left,#ffffffe2,#ffffff37), url("https://images.pexels.com/photos/5242808/pexels-photo-5242808.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")no-repeat ;
+
+background-blend-mode: lighten;`
 const Wrapper=styled.div`
 `
 const Title=styled.h1`
