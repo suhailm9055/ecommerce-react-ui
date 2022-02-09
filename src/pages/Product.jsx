@@ -76,8 +76,35 @@ align-items:center;
 font-weight:700;
 `
 const Button=styled.button`
+padding: 5px 10px;
+ 
+  font-size: 15px;
+  letter-spacing: 2px;
+  /* border-radius: 25px; */
+  font-weight: 500;
+  background: #008080;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #006363;
+  box-shadow: 2px 2px 5px 1px #11111153;
+  transition: all 0.5s ease;
+  &:hover{
+    transform:scale(1.1) ;
+    background: #06d6d6dc;
+    color: #4d4d4de6;
+    font-weight: bold;
+  }
 `
 const Amount=styled.span`
+width:30px;
+height:30px;
+border-radius:10px;
+border:1px solid teal;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:0px 5px;
 `
 
 const Product = () => {
