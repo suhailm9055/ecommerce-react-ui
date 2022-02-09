@@ -34,6 +34,9 @@ font-size:20px;
 min-width:40%;
 margin:20px 10px 0px 0px;
 padding:5px;
+border: none;
+box-shadow: 2px 2px 5px 1px #11111153;
+border-radius:4px;
 `
 const Agreement=styled.div`
 font-size:15px;
@@ -58,6 +61,7 @@ padding: 5px 15px;
   color: #fff;
   text-align: center;
   cursor: pointer;
+  border-radius:4px;
   border: 1px solid #006363;
   box-shadow: 2px 2px 5px 1px #11111153;
   transition: all 0.5s ease;
@@ -75,7 +79,7 @@ const Register = () => {
         <Wrapper>
             <Title>CREATE AN ACCOUNT</Title>
             <Form>
-                <Input placeholder="Name"/>
+                <Input placeholder="First Name"/>
                 <Input placeholder="Last Name"/>
                 <Input placeholder="Username"/>
                 <Input placeholder="Email"/>
