@@ -10,6 +10,11 @@ const Form=styled.form`
 `
 const Input=styled.input`
 `
+const Agreement=styled.div`
+`
+const Button=styled.button`
+`
+
 const Register = () => {
   return (
     <Container>
@@ -23,9 +28,9 @@ const Register = () => {
                 <Input placeholder="Password"/>
                 <Input placeholder="Confirm Password"/>
             <Agreement>
-                By Creating an account, I consent to the processing of my personal data in accordance with the <br> PRIVACY POLICY</br>
+                By Creating an account, I consent to the processing of my personal data in accordance with the <b> PRIVACY POLICY</b>
             </Agreement>
-           <Button>Create Account <Button/>
+           <Button>Create Account </Button>
         </Form>
         </Wrapper>
 
