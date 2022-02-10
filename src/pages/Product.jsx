@@ -4,11 +4,13 @@ import Announcements from "../components/Announcements";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
+import { mobile } from "../Responsive";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
   display: flex;
   padding: 50px;
+  ${mobile({flexDirection:"column" ,alignItems:'center',padding:"25px 10px"})}
 `;
 const ImgContainer = styled.div`
   flex: 1;
@@ -17,6 +19,7 @@ const ImgContainer = styled.div`
   overflow: hidden;
   display: flex;
   justify-content: center;
+  ${mobile({width:"80%"})}
 `;
 const Img = styled.img`
   width: 50%;
@@ -25,15 +28,19 @@ const Img = styled.img`
 const InfoContainer = styled.div`
   flex: 1;
   padding:0px 50px;
+  ${mobile({width:"80%",textAlign:"center"})}
 `;
 const Title = styled.h1`
 font-weight:200;
 `;
 const Desc = styled.p`
-margin:20px 0px;`;
+margin:20px 0px;
+${mobile({margin:"0"})}
+`;
 const Price = styled.span`
 font-weight:100;
 font-size:40px;
+
 `;
 
 const FilterContainer= styled.div`
@@ -41,6 +48,7 @@ width:50%;
 margin:30px 0px;
   display:flex;
   justify-content:space-between;
+  ${mobile({width:'100%',margin:'10px 0px'})}
 `
 const Filter= styled.div`
   display:flex;
@@ -56,10 +64,12 @@ const FilterColor= styled.div`
 const FilterTitle= styled.span`
   font-size:20px;
   font-weight:200;
+  ${mobile({margin:'0px 10px'})}
 `
 const FilterSize= styled.select`
   margin:0px 10px;
-
+  ${mobile({margin:'0px'})}
+  
 `
 const FilterSizeOption= styled.option`
   
@@ -69,6 +79,7 @@ width:50%;
 display:flex;
 align-items:center;
 justify-content:space-between;
+${mobile({width:'100%',marginTop:'30px'})}
 `
 const AmountContainer=styled.div`
 display:flex;

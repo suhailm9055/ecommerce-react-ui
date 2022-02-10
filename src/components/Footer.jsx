@@ -50,7 +50,7 @@ const SocialIcon = styled.div`
 const Center = styled.div`
   flex: 1;
   padding-left: 10px;
-  ${mobile({ display: "flex", flexDirection: "column", alignItems: "center" })}
+  ${mobile({ display: "flex", flexDirection: "column", alignItems: "center" ,justifyContent:"space-around"})}
 `;
 const Title = styled.h2`
   ${mobile({ width: "100%", textAlign: "center" })}
@@ -85,7 +85,7 @@ const Contactitem = styled.div`
   display: flex;
   margin-bottom: 10px;
   align-items: center;
-  ${mobile({ width: "30%" })}
+  ${mobile({ width: "30%" ,justifyContent:"space-around"})}
 `;
 const Payment = styled.img`
   width: 35%;
@@ -139,22 +139,22 @@ const Footer = () => {
           <Contactitem>
             <Icons>
               {" "}
-              <Room style={{ marginRight: "10px" }} /> Doha,Qatar
-            </Icons>
+              <Room style={{ marginRight: "10px" }} /></Icons> Doha,Qatar
+            
           </Contactitem>
           <Contactitem>
             <Icons>
               {" "}
               <Phone style={{ marginRight: "10px" }} />
-              +974 1234 5678
             </Icons>
+              +974 1234 5678
           </Contactitem>
           <Contactitem>
             <Icons>
               {" "}
               <MailOutline style={{ marginRight: "10px" }} />
-              ring@qataring.qa
             </Icons>
+              ring@qataring.qa
           </Contactitem>
           <Payment src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJT4cLIx-U9ZTPsz_Z6EBE3qjHKxRW5K35-jW2sU3MhpPdaVl8WD1-55D3VJgdkR38fw&usqp=CAU" />
         </Right>

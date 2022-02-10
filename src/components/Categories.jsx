@@ -2,6 +2,7 @@ import  styled  from "styled-components";
 import React from "react";
 import { categories } from "../data";
 import CategoryItems from "./CategoryItems";
+import { mobile } from "../Responsive";
 
 const Container = styled.div`
 display: flex;
@@ -9,6 +10,7 @@ padding: 20px;
 justify-content: space-between;
 overflow: hidden;
 height: 50vh;
+${mobile({flexDirection:'column',height:"fit-content"})}
 `;
 
 const Categories = () => {

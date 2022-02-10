@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mobile } from "../Responsive";
 
 
 const Container=styled.div`
@@ -20,12 +21,14 @@ min-height:50%;
 display:flex;
 justify-content:center;
 flex-direction:column;
+${mobile({width:"80%"})}
 `
 const Title=styled.h1`
 text-align:center;
 font-size:28px;
 font-weight:300;
 padding:10px 0;
+${mobile({fontSize:"38px"})}
 `
 const Form=styled.form`
 
@@ -43,6 +46,7 @@ padding:5px;
 border: none;
 box-shadow: 2px 2px 5px 1px #11111153;
 border-radius:4px;
+${mobile({fontSize:"24px",width:"75%" })}
 `
 
 const ButtonContainer=styled.div`
@@ -74,6 +78,7 @@ transition: all 0.5s ease;
     color: #4d4d4de6;
     font-weight: bold;
 }
+${mobile({width:"120px"})}
 `
 
 const LinkContainer=styled.div`
@@ -87,7 +92,9 @@ width:100%;
 
 font-size:12px;
 text-decoration:underline;
-cursor:pointer;`
+cursor:pointer;
+${mobile({fontSize:"18px"})}
+`
 
 const Login = () => {
   return (

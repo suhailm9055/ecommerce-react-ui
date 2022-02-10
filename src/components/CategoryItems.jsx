@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mobile } from '../Responsive';
 
 const Title = styled.h1`
         margin: 5px 5px;
@@ -13,6 +14,7 @@ const Container = styled.div`
     
     position: relative;
     transition: all 0.5s ease;
+   
     &:hover ${Title}{
      font-size:50px;
      overflow: hidden;

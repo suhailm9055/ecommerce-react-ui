@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mobile } from "../Responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -18,6 +19,7 @@ const Wrapper = styled.div`
   box-shadow: 0px 0px 15px 8px #423e3eab;
   border-radius: 10px;
   min-height: 50%;
+  ${mobile({width:"85%",display:'flex',flexDirection:'column',justifyContent:'center',AlignItems:'center'})}
 `;
 const Title = styled.h1`
   font-size: 28px;
@@ -29,6 +31,8 @@ const Form = styled.form`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  
+  ${mobile({width:'100%',display:'flex',flexDirection:'column',justifyContent:'center',AlignItems:'center'})}
 `;
 const Input = styled.input`
   flex: 1;
@@ -39,6 +43,7 @@ const Input = styled.input`
   border: none;
   box-shadow: 2px 2px 5px 1px #11111153;
   border-radius: 4px;
+  
 `;
 const Agreement = styled.div`
   font-size: 15px;
