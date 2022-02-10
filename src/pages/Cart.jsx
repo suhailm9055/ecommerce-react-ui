@@ -24,8 +24,9 @@ const Top=styled.div`
 const TopButton=styled.button`
 
   padding:10px;
-  font-weight:600;
-  letter-spacing:1px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-weight: 500;
   cursor:pointer;
   border:${props=>props.type === "filled" ? "1px solid #006363":'1px solid #616161dc'};
   background-color:${props=>props.type === "filled" ? "#008080":"#ffffff"};
@@ -100,9 +101,9 @@ background-color:${props=>props.color};
 const PriceDetail=styled.div`
 flex:1;
 display:flex;
+justify-content:center;
 align-items:center;
 flex-direction:column;
-justify-content:center;
 `
 const ProductAmountContainer=styled.div`
   display:flex;
@@ -118,7 +119,7 @@ const ProductPrice=styled.div`
    font-weight:200;
 `
 const Hr=styled.hr`
-background-color:#eee;
+background-color:#e7e7e7;
 border:none;
 height:1px;
 `
@@ -126,17 +127,52 @@ const Summary=styled.div`
 flex:1;
   border:0.5px solid lightgray;
   border-radius:10px;
-  padding:10px;
+  padding:20px;
 `
 const SummaryTitle=styled.h1`
+font-weight:200;
 `
 const SummaryItem=styled.div`
+margin:30px 0px;
+display:flex;
+justify-content:space-between;
+padding:10px;
+font-size:18px;
+border-bottom:${props=>props.borderDark==="true" ? "0.5px solid gray":'0.5px solid lightgray'};
+font-weight:${props=>props.type==="total" && "500"};
+font-size:${props=>props.type==="total" && "28px"};
 `
 const SummaryItemText=styled.span`
 `
 const SummaryItemPrice=styled.span`
 `
+const ButtonContainer = styled.div`
+width:100%;
+height:auto;
+padding:10px 0;
+    display:flex;
+align-items:center;
+  justify-content:center;
+`;
 const Button=styled.button`
+padding: 5px 15px;
+  padding-top: 7px;
+  font-size: 17px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  background: #008080;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #006363;
+  box-shadow: 2px 2px 5px 1px #11111153;
+  transition: all 0.5s ease;
+  &:hover {
+    transform: scale(1.1);
+    background: #06d6d6dc;
+    color: #4d4d4de6;
+    font-weight: bold;
+  }
 `
 
 const Cart = () => {
@@ -207,15 +243,17 @@ const Cart = () => {
           <SummaryItemText>Estimated Shipping</SummaryItemText>
           <SummaryItemPrice>25 QR</SummaryItemPrice>
         </SummaryItem>
-        <SummaryItem>
+        <SummaryItem borderDark="true">
           <SummaryItemText>Shipping Discount</SummaryItemText>
           <SummaryItemPrice>-25 QR</SummaryItemPrice>
         </SummaryItem>
-        <SummaryItem>
-          <SummaryItemText type="total">Total</SummaryItemText>
+        <SummaryItem type="total">
+          <SummaryItemText >Total</SummaryItemText>
           <SummaryItemPrice>299 QR</SummaryItemPrice>
         </SummaryItem>
-        <Button>Checkout Now</Button>
+        <ButtonContainer>
+            <Button>CHECKOUT NOW</Button>
+          </ButtonContainer>
         </Summary>
       </Bottom>
       </Wrapper>
