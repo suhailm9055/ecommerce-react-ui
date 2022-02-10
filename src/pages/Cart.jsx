@@ -58,10 +58,7 @@ const Info=styled.div`
   flex:3;
   
 `
-const Summary=styled.div`
-flex:1;
-  
-`
+
 const Product=styled.div`
 display:flex;
 justify-content:space-between;
@@ -125,6 +122,22 @@ background-color:#eee;
 border:none;
 height:1px;
 `
+const Summary=styled.div`
+flex:1;
+  border:0.5px solid lightgray;
+  border-radius:10px;
+  padding:10px;
+`
+const SummaryTitle=styled.h1`
+`
+const SummaryItem=styled.div`
+`
+const SummaryItemText=styled.span`
+`
+const SummaryItemPrice=styled.span`
+`
+const Button=styled.button`
+`
 
 const Cart = () => {
   return (
@@ -184,7 +197,26 @@ const Cart = () => {
             </PriceDetail>
           </Product>
         </Info>
-        <Summary>Summary</Summary>
+        <Summary>
+          <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+        <SummaryItem>
+          <SummaryItemText>SubTotal</SummaryItemText>
+          <SummaryItemPrice>299 QR</SummaryItemPrice>
+        </SummaryItem>
+        <SummaryItem>
+          <SummaryItemText>Estimated Shipping</SummaryItemText>
+          <SummaryItemPrice>25 QR</SummaryItemPrice>
+        </SummaryItem>
+        <SummaryItem>
+          <SummaryItemText>Shipping Discount</SummaryItemText>
+          <SummaryItemPrice>-25 QR</SummaryItemPrice>
+        </SummaryItem>
+        <SummaryItem>
+          <SummaryItemText type="total">Total</SummaryItemText>
+          <SummaryItemPrice>299 QR</SummaryItemPrice>
+        </SummaryItem>
+        <Button>Checkout Now</Button>
+        </Summary>
       </Bottom>
       </Wrapper>
       <Footer/>
