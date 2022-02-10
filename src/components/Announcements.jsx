@@ -14,7 +14,7 @@ const Container = styled.div`
     `
 const Announcements = () => {
   return <Container>
-      Hurry! Free shipping over 200QR Ends Soon…
+      Hurry! Free shipping over 200QR Purchase Ends Soon…
   </Container>;
 };
 
