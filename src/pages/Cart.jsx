@@ -4,6 +4,7 @@ import  Navbar  from '../components/Navbar'
 import  Announcements  from '../components/Announcements'
 import  Footer  from '../components/Footer'
 import { Add, Remove } from '@material-ui/icons'
+import { mobile } from '../Responsive'
 const Container=styled.div`
   
 `
@@ -39,9 +40,10 @@ const TopButton=styled.button`
     font-weight: bold;
     border:${props=>props.type === "filled" ? "1px solid #006363":'1px solid #06d6d6dc'};
   }
+  ${mobile({display:props=>props.type === "filled" && "none"})}
 `
 const TopTexts=styled.div`
-  
+  ${mobile({display:"flex",flexDirection:"column"})}
 `
 const TopText=styled.span`
   text-decoration:underline;
@@ -54,6 +56,7 @@ const TopText=styled.span`
 const Bottom=styled.div`
   display:flex;
   justify-content:space-between;
+  ${mobile({flexDirection:"column"})}
 `
 const Info=styled.div`
   flex:3;
@@ -72,6 +75,7 @@ display:flex;
 const Image=styled.img`
 width:35%;
 height:auto;
+${mobile({width:"50%"})}
 `
 const Details=styled.div`
 padding:20px;
@@ -128,6 +132,7 @@ flex:1;
   border:0.5px solid lightgray;
   border-radius:10px;
   padding:20px;
+  height:100%;
 `
 const SummaryTitle=styled.h1`
 font-weight:200;

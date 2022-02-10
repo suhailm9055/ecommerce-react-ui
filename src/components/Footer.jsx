@@ -10,10 +10,14 @@ import { Roofing } from "@mui/icons-material";
 import { ListItemAvatar } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
+import { mobile } from "../Responsive";
 
 const Container = styled.div`
   padding: 10px;
   display: flex;
+
+  
+  ${mobile({flexDirection:"column-reverse"})}
 `;
 const Left = styled.div`
 padding-left:10px;
@@ -46,10 +50,13 @@ const SocialIcon = styled.div`
 `;
 const Center = styled.div`
   flex: 1;
+  padding-left:10px;
+  ${mobile({display:"flex",flexDirection:"column",alignItems:"center"})}
 `;
 const Title = styled.h2``;
 const List = styled.ul`
   display: flex;
+  ${mobile({display:"flex",flexDirection:"row",justifyContent:"center",flexWrap:""})}
   flex-wrap: wrap;
   list-style-type: none;
   margin: 0;
@@ -61,6 +68,7 @@ const ListItem = styled.li`
 
 const Right = styled.div`
   flex: 1;
+  ${mobile({display:"flex",flexDirection:"column",alignItems:"center"})}
 `;
 const Contactitem = styled.div`
   display: flex;
