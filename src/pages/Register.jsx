@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mobile } from "../Responsive";
+import { mobile, tablet } from "../Responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -13,13 +13,14 @@ const Container = styled.div`
   justify-content: center;
 `;
 const Wrapper = styled.div`
-  width: 35%;
+  width: 40%;
   padding: 20px;
   background: linear-gradient(#fffdfdb7, #fffdfd3e);
   box-shadow: 0px 0px 15px 8px #423e3eab;
   border-radius: 10px;
   min-height: 50%;
   ${mobile({width:"85%",display:'flex',flexDirection:'column',justifyContent:'center',AlignItems:'center'})}
+  ${tablet({width:"85%",display:'flex',flexDirection:'column',justifyContent:'center',AlignItems:'center'})}
 `;
 const Title = styled.h1`
   font-size: 28px;
