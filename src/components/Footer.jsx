@@ -16,25 +16,24 @@ const Container = styled.div`
   padding: 10px;
   display: flex;
 
-  
-  ${mobile({flexDirection:"column-reverse"})}
+  ${mobile({ flexDirection: "column-reverse", padding: "15px" })}
 `;
 const Left = styled.div`
-padding-left:10px;
+  padding-left: 10px;
 
   flex: 1;
   display: flex;
   flex-direction: column;
-  
-  `;
-  const Desc= styled.h5`
-  margin:4px 10px;
-  width:70%;`
+  ${mobile({ display: "flex", flexDirection: "column", alignItems: "center" })}
+`;
+const Desc = styled.h5`
+  margin: 4px 10px;
+  width: 70%;
+`;
 const Logo = styled.h1`
-margin:0px 10px;
-`
+  margin: 0px 10px;
+`;
 const SocialContainer = styled.div`
-
   display: flex;
 `;
 const SocialIcon = styled.div`
@@ -50,13 +49,20 @@ const SocialIcon = styled.div`
 `;
 const Center = styled.div`
   flex: 1;
-  padding-left:10px;
-  ${mobile({display:"flex",flexDirection:"column",alignItems:"center"})}
+  padding-left: 10px;
+  ${mobile({ display: "flex", flexDirection: "column", alignItems: "center" })}
 `;
-const Title = styled.h2``;
+const Title = styled.h2`
+  ${mobile({ width: "100%", textAlign: "center" })}
+`;
 const List = styled.ul`
   display: flex;
-  ${mobile({display:"flex",flexDirection:"row",justifyContent:"center",flexWrap:""})}
+  ${mobile({
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    flexWrap: "nowrap",
+  })}
   flex-wrap: wrap;
   list-style-type: none;
   margin: 0;
@@ -68,23 +74,38 @@ const ListItem = styled.li`
 
 const Right = styled.div`
   flex: 1;
-  ${mobile({display:"flex",flexDirection:"column",alignItems:"center"})}
+  ${mobile({
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+  })}
 `;
 const Contactitem = styled.div`
   display: flex;
   margin-bottom: 10px;
   align-items: center;
+  ${mobile({ width: "30%" })}
 `;
-const Payment=styled.img`
-width:35%;`
+const Payment = styled.img`
+  width: 35%;
+  ${mobile({ display: "none" })}
+`;
 
+const Icons=styled.div`
+  ${mobile({ display: "none" })}
+`
 const Footer = () => {
   return (
     <>
       <Container>
         <Left>
           <Logo>QataRing.qa</Logo>
-          <Desc>Ring is an online Fashion & Lifestyle shopping company founded in Qatar. As of April 2022, Talabat operates in all areas inside Qatar and ensures the fastest delivery in the market</Desc>
+          <Desc>
+            Ring is an online Fashion & Lifestyle shopping company founded in
+            Qatar. As of April 2022, Talabat operates in all areas inside Qatar
+            and ensures the fastest delivery in the market
+          </Desc>
           <SocialContainer>
             <SocialIcon color="#2c46a1">
               <Facebook />
@@ -116,18 +137,26 @@ const Footer = () => {
         <Right>
           <Title>Contact</Title>
           <Contactitem>
-            <Room style={{ marginRight: "10px" }} /> Doha,Qatar
+            <Icons>
+              {" "}
+              <Room style={{ marginRight: "10px" }} /> Doha,Qatar
+            </Icons>
           </Contactitem>
           <Contactitem>
-            <Phone style={{ marginRight: "10px" }} />
-            +974 1234 5678
+            <Icons>
+              {" "}
+              <Phone style={{ marginRight: "10px" }} />
+              +974 1234 5678
+            </Icons>
           </Contactitem>
           <Contactitem>
-            <MailOutline style={{ marginRight: "10px" }} />
-            ring@qataring.qa
+            <Icons>
+              {" "}
+              <MailOutline style={{ marginRight: "10px" }} />
+              ring@qataring.qa
+            </Icons>
           </Contactitem>
-          <Payment src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJT4cLIx-U9ZTPsz_Z6EBE3qjHKxRW5K35-jW2sU3MhpPdaVl8WD1-55D3VJgdkR38fw&usqp=CAU"/>
-          
+          <Payment src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJT4cLIx-U9ZTPsz_Z6EBE3qjHKxRW5K35-jW2sU3MhpPdaVl8WD1-55D3VJgdkR38fw&usqp=CAU" />
         </Right>
       </Container>
     </>
