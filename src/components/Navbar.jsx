@@ -2,7 +2,7 @@ import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import Badge from '@mui/material/Badge';
-import { mobile } from "../Responsive";
+import { mobile, tablet } from "../Responsive";
 
 const Container = styled.div`
   height: 60px;
@@ -39,6 +39,7 @@ const Language = styled.span`
 const Input = styled.input`
   border: none;
   ${mobile({width:"50px"})}
+  ${tablet({width:"40px"})}
 `
 const SearchContainer = styled.div`
   border: 0.5px solid lightgray;
@@ -46,10 +47,17 @@ const SearchContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-inline:20px;
+  display:${props=>props.usercheck.user==="notLoggedIn" ? "none":"block"};
 `
 const Center = styled.div`
-  flex: 1;
+  flex: 3;
   text-align: center;
+  display:flex;
+  /* justify-content:flex-end; */
+  justify-content:${props=>props.usercheck.user==="notLoggedIn" ? "center":"flex-end"};
+  display:${props=>props.display==="mobile" && "none"};
+
+  ${mobile({display:props=>props.display==="mobile" ? "block":"none",justifyContent:props=>props.usercheck.user==="notLoggedIn" ? "center":"flex-end"})};
 `;
 const Logo = styled.h1`
 font-family: 'Noto Kufi Arabic', sans-serif;
@@ -76,8 +84,13 @@ const MenuItem = styled.div`
   cursor: pointer;
   margin-right: 20px;
   ${mobile({marginRight: "5px"})}
+  ${tablet({marginRight: "10px"})}
 `
-const Navbar = () => {
+const BadgeContainer=styled.div`
+  display:${props=>props.usercheck.user==="notLoggedIn" ? "none":"block"};
+  `
+const Navbar = (user) => {
+  
   return (
     <Container>
       <Wrapper>
@@ -85,25 +98,32 @@ const Navbar = () => {
         <LogoSearchContainer>
         <Left>
           <Language>EN</Language>
-          <SearchContainer>
+          <SearchContainer usercheck={user}>
             <Input placeholder="Search"/> 
             <Search  style={{color:"gray",fontSize:16}}/>
           </SearchContainer>
         </Left>
-        <Center>
+        <Center display="mobile" usercheck={user}>
           {/* <Logo><br/>
          التوصيل السريع | قطر </Logo> */}
          <LogoEng>
          QataRing.qa </LogoEng>
          </Center>
          </LogoSearchContainer>
-
+         <Center display="lap" usercheck={user}>
+          {/* <Logo><br/>
+         التوصيل السريع | قطر </Logo> */}
+         <LogoEng>
+         QataRing.qa </LogoEng>
+         </Center>
         <Right>
           <MenuItem>Register</MenuItem>
           <MenuItem>Sign In</MenuItem>
-          <Badge badgeContent={4} color="primary">
+         <BadgeContainer usercheck={user}>
+           <Badge badgeContent={4} color="primary">
       <ShoppingCartOutlined color="black" />
     </Badge>
+           </BadgeContainer> 
         </Right>
       </Wrapper>
     </Container>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { mobile, tablet } from "../Responsive";
-
+import Navbar from "../components/Navbar";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -44,6 +44,10 @@ const Input = styled.input`
   border: none;
   box-shadow: 2px 2px 5px 1px #11111153;
   border-radius: 4px;
+  &:hover,:focus{
+  box-shadow: 0px 0px 5px 1px #06d6d6dc;
+  outline:none;
+}
   
 `;
 const Agreement = styled.div`
@@ -83,6 +87,8 @@ const Button = styled.button`
 
 const Register = () => {
   return (
+    <>
+      <Navbar user="notLoggedIn"/>
     <Container>
       <Wrapper>
         <Title>CREATE NEW ACCOUNT</Title>
@@ -104,6 +110,7 @@ const Register = () => {
         </Form>
       </Wrapper>
     </Container>
+    </>
   );
 };
 

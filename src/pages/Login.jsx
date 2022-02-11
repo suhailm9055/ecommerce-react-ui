@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { mobile, tablet } from "../Responsive";
-
+import Navbar from "../components/Navbar";
 
 const Container=styled.div`
 width:100vw;
-height:100vh;
+height:90.1vh;
 background:linear-gradient(to right,#adadad97,#2c2c2cd1), url("https://images.pexels.com/photos/5704412/pexels-photo-5704412.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
 display:flex;
 background-size:center;
@@ -47,7 +47,11 @@ padding:5px;
 border: none;
 box-shadow: 2px 2px 5px 1px #11111153;
 border-radius:4px;
-${mobile({fontSize:"20px",width:"75%" })}
+${mobile({fontSize:"20px",width:"75%" })};
+&:hover,:focus{
+  box-shadow: 0px 0px 5px 1px #06d6d6dc;
+  outline:none;
+}
 `
 
 const ButtonContainer=styled.div`
@@ -99,6 +103,8 @@ ${mobile({fontSize:"14px"})}
 
 const Login = () => {
   return (
+    <>
+      <Navbar user="notLoggedIn"/>
     <Container>
         <Wrapper>
             <Title>SIGN IN</Title>
@@ -122,6 +128,7 @@ const Login = () => {
 
 
     </Container>
+    </>
   )
 }
 
