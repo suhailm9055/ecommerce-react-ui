@@ -29,17 +29,25 @@ export const categories = [
       id: 1,
       img: "/images/FLORAL CASUAL DRESS GIRLS.jpg",
       title: "FLORAL CASUALS!",
+      cat:"women"
     },
     {
       id: 2,
       img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
       title: "LOUNGEWEAR LOVE",
+      cat:"men"
     },
     {
       id: 3,
+      img: "https://www.prada.com/content/dam/pradanux_products/U/UPW/UPW416/2D02F0011/UPW416_2D02_F0011_SLF.png/_jcr_content/renditions/cq5dam.web.hf7f7f7.400.500.webp",
+      title: "LOUNGEWEAR LOVE",
+      cat:"men"
+    },
+    {
+      id: 4,
       img: "/images/etegi-lastikli-tesettur-kap-tsd0080-indigo-93286-12-B.jpg",
       title: "WINTER FASHIONS",
-    },
+      cat:"winter"    },
   ];
 
   export const popularProducts = [

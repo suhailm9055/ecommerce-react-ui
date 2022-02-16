@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import Badge from '@mui/material/Badge';
 import { mobile, tablet } from "../Responsive";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 60px;
@@ -104,18 +105,25 @@ const Navbar = (user) => {
           </SearchContainer>
         </Left>
         <Center display="mobile" usercheck={user}>
+        <Link to="/">
           {/* <Logo><br/>
          التوصيل السريع | قطر </Logo> */}
          <LogoEng>
          QataRing.qa </LogoEng>
+           </Link>
          </Center>
          </LogoSearchContainer>
          <Center display="lap" usercheck={user}>
+         <Link to="/">
           {/* <Logo><br/>
          التوصيل السريع | قطر </Logo> */}
          <LogoEng>
          QataRing.qa </LogoEng>
+
+         </Link>
          </Center>
+
+
         <Right>
           <MenuItem>Register</MenuItem>
           <MenuItem>Sign In</MenuItem>
