@@ -11,7 +11,7 @@ justify-content: space-between;
 overflow: hidden;
 height: 50vh;
 ${mobile({flexDirection:'column',height:"fit-content"})}
-${tablet({flexDirection:'row',height:"40vh"})}
+${tablet({flexDirection:'column',height:"fit-content"})}
 `;
 
 const Categories = () => {

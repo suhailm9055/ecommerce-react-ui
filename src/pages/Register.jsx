@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { mobile, tablet } from "../Responsive";
 import Navbar from "../components/Navbar";
@@ -19,6 +20,10 @@ const Wrapper = styled.div`
   box-shadow: 0px 0px 15px 8px #423e3eab;
   border-radius: 10px;
   min-height: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
   ${mobile({width:"85%",display:'flex',flexDirection:'column',justifyContent:'center',AlignItems:'center'})}
   ${tablet({width:"85%",display:'flex',flexDirection:'column',justifyContent:'center',AlignItems:'center'})}
 `;
@@ -31,7 +36,7 @@ const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   
   ${mobile({width:'100%',display:'flex',flexDirection:'column',justifyContent:'center',AlignItems:'center'})}
 `;

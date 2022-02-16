@@ -10,12 +10,13 @@ import { Roofing } from "@mui/icons-material";
 import { ListItemAvatar } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
-import { mobile } from "../Responsive";
+import { mobile, tablet } from "../Responsive";
 
 const Container = styled.div`
-  padding: 10px;
+  /* padding: 10px; */
   display: flex;
-
+  padding:2% 15%;
+  ${tablet({padding:"20px"})}
   ${mobile({ flexDirection: "column-reverse", padding: "15px" })}
 `;
 const Left = styled.div`
@@ -74,6 +75,10 @@ const ListItem = styled.li`
 
 const Right = styled.div`
   flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
   ${mobile({
     display: "flex",
     flexDirection: "row",
@@ -83,8 +88,11 @@ const Right = styled.div`
 `;
 const Contactitem = styled.div`
   display: flex;
-  margin-bottom: 10px;
+  justify-content: flex-start;
   align-items: center;
+  
+  margin-bottom: 10px;
+  
   ${mobile({ width: "30%" ,justifyContent:"space-around"})}
 `;
 const Payment = styled.img`

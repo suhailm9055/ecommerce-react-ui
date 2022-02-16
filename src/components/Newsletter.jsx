@@ -4,13 +4,14 @@ import styled from 'styled-components';
 import { mobile } from '../Responsive';
 
 const Container=styled.div`
-height:60vh;
+height:20%;
+padding-bottom: 3%;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
 background:#f5fbfd;
-${mobile({height:"40vh"})}
+${mobile({height:"20%"})}
     
 `
 const Title= styled.h1`

@@ -4,12 +4,14 @@ import  Navbar  from '../components/Navbar'
 import  Announcements  from '../components/Announcements'
 import  Footer  from '../components/Footer'
 import { Add, Remove } from '@material-ui/icons'
-import { mobile } from '../Responsive'
+import { mobile, tablet } from '../Responsive'
 const Container=styled.div`
   
 `
 const Wrapper=styled.div`
-  padding:20px;
+  padding:2% 15%;
+  ${mobile({padding:"10px"})}
+  ${tablet({padding:"20px"})}
 
 `
 const Title=styled.h1`

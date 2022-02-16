@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { mobile, tablet } from "../Responsive";
 import Navbar from "../components/Navbar";

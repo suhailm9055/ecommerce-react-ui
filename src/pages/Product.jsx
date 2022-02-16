@@ -1,16 +1,18 @@
+import React from "react";
 import { Add, Remove } from "@material-ui/icons";
 import styled from "styled-components";
 import Announcements from "../components/Announcements";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
-import { mobile } from "../Responsive";
+import { mobile, tablet } from "../Responsive";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
   display: flex;
   padding: 50px;
   ${mobile({flexDirection:"column" ,alignItems:'center',padding:"25px 10px"})}
+  ${tablet({flexDirection:"column" ,alignItems:'center',padding:"25px 10px"})}
 `;
 const ImgContainer = styled.div`
   flex: 1;
@@ -20,6 +22,7 @@ const ImgContainer = styled.div`
   display: flex;
   justify-content: center;
   ${mobile({width:"80%"})}
+  ${tablet({flex: "80%"})}
 `;
 const Img = styled.img`
   width: 50%;
@@ -29,6 +32,8 @@ const InfoContainer = styled.div`
   flex: 1;
   padding:0px 50px;
   ${mobile({width:"80%",textAlign:"center"})}
+  ${tablet({width:"80%",textAlign:"center"})}
+
 `;
 const Title = styled.h1`
 font-weight:200;
@@ -49,6 +54,7 @@ margin:30px 0px;
   display:flex;
   justify-content:space-between;
   ${mobile({width:'100%',margin:'10px 0px'})}
+  ${tablet({width:'100%',margin:'10px 0px'})}
 `
 const Filter= styled.div`
   display:flex;
@@ -80,6 +86,7 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 ${mobile({width:'100%',marginTop:'30px'})}
+${tablet({width:'100%',marginTop:'30px'})}
 `
 const AmountContainer=styled.div`
 display:flex;
