@@ -2,6 +2,7 @@ import { red } from "@material-ui/core/colors";
 import { SearchOutlined, ShoppingCartOutlined } from "@material-ui/icons";
 import { FavoriteBorderOutlined } from "@mui/icons-material";
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Info = styled.div`
@@ -79,6 +80,7 @@ font-weight: 500;
 
 
 const Product = ({ item }) => {
+  
   return (
     <>
       <Container>
@@ -88,9 +90,11 @@ const Product = ({ item }) => {
           <Icon>
             <ShoppingCartOutlined />
           </Icon>
+            <Link to={`/product/${item._id}`}>
           <Icon>
             <SearchOutlined />
           </Icon>
+            </Link>
           <Icon color="red">
             <FavoriteBorderOutlined />
           </Icon>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Add, Remove } from "@material-ui/icons";
 import styled from "styled-components";
 import Announcements from "../components/Announcements";
@@ -6,23 +6,33 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile, tablet } from "../Responsive";
+import { useLocation } from "react-router-dom";
+import { publicRequest } from "../requestMethods";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
   display: flex;
   padding: 50px;
-  ${mobile({flexDirection:"column" ,alignItems:'center',padding:"25px 10px"})}
-  ${tablet({flexDirection:"column" ,alignItems:'center',padding:"25px 10px"})}
+  ${mobile({
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "25px 10px",
+  })}
+  ${tablet({
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "25px 10px",
+  })}
 `;
 const ImgContainer = styled.div`
   flex: 1;
   width: 50%;
-  background: #e0e0de;
+  background: #fff;
   overflow: hidden;
   display: flex;
   justify-content: center;
-  ${mobile({width:"80%"})}
-  ${tablet({flex: "80%"})}
+  ${mobile({ width: "80%" })}
+  ${tablet({ flex: "80%" })}
 `;
 const Img = styled.img`
   width: 50%;
@@ -30,72 +40,87 @@ const Img = styled.img`
 `;
 const InfoContainer = styled.div`
   flex: 1;
-  padding:0px 50px;
-  ${mobile({width:"80%",textAlign:"center"})}
-  ${tablet({width:"80%",textAlign:"center"})}
-
+  padding: 0px 50px;
+  ${mobile({ width: "80%", textAlign: "center" })}
+  ${tablet({ width: "80%", textAlign: "center" })}
 `;
 const Title = styled.h1`
-font-weight:200;
+  font-weight: 200;
 `;
 const Desc = styled.p`
-margin:20px 0px;
-${mobile({margin:"0"})}
+  margin: 20px 0px;
+  ${mobile({ margin: "0" })}
 `;
 const Price = styled.span`
-font-weight:100;
-font-size:40px;
-
+  font-weight: 100;
+  font-size: 40px;
 `;
 
-const FilterContainer= styled.div`
-width:50%;
-margin:30px 0px;
-  display:flex;
-  justify-content:space-between;
-  ${mobile({width:'100%',margin:'10px 0px'})}
-  ${tablet({width:'100%',margin:'10px 0px'})}
-`
-const Filter= styled.div`
-  display:flex;
-  align-items:center;
-`
-const FilterColor= styled.div`
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  background-color:${props=>props.color};
-  margin:0px 5px;
-`
-const FilterTitle= styled.span`
-  font-size:20px;
-  font-weight:200;
-  ${mobile({margin:'0px 10px'})}
-`
-const FilterSize= styled.select`
-  margin:0px 10px;
-  ${mobile({margin:'0px'})}
-  
-`
-const FilterSizeOption= styled.option`
-  
-`
-const AddContainer=styled.div`
-width:50%;
-display:flex;
-align-items:center;
-justify-content:space-between;
-${mobile({width:'100%',marginTop:'30px'})}
-${tablet({width:'100%',marginTop:'30px'})}
-`
-const AmountContainer=styled.div`
-display:flex;
-align-items:center;
-font-weight:700;
-`
-const Button=styled.button`
-padding: 5px 10px;
- 
+const FilterContainer = styled.div`
+  width: 60%;
+  margin: 30px 0px;
+  display: flex;
+  justify-content: space-between;
+  ${mobile({ width: "100%", margin: "10px 0px" })}
+  ${tablet({ width: "100%", margin: "10px 0px" })}
+`;
+const Filter = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #a7a7a7b9;
+  padding: 2% 3%;
+border-radius: 30px;
+
+
+`;
+const FilterColor = styled.div`
+      width: 45px;
+    height: 25px;
+  border-radius: 50%;
+  background-color: ${(props) => props.color};
+  margin: 0px 5px;
+`;
+const FilterTitle = styled.span`
+  font-size: 24px;
+  font-weight: 200;
+  margin-right:15%;
+  ${mobile({ margin: "0px 10px" })}
+`;
+const FilterSize = styled.select`
+          margin-right: 17px;
+    width: 76px;
+    font-size: 20px;
+  background-color: #008080;
+    
+    /* border-radius: 15px; */
+    &:hover {
+    transform: scale(1.1);
+    background: #06d6d6dc;
+    color: #4d4d4de6;
+    font-weight: bold;
+  }
+  ${mobile({ margin: "0px" })}
+`;
+const FilterSizeOption = styled.option``;
+const AddContainer = styled.div`
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #a7a7a7b9;
+padding: 2% 5%;
+border-radius: 30px;
+  ${mobile({ width: "90%", marginTop: "30px" })}
+  ${tablet({ width: "90%", marginTop: "30px" })}
+`;
+const AmountContainer = styled.div`
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+`;
+const Button = styled.button`
+  padding: 5px 10px;
+
   font-size: 15px;
   letter-spacing: 2px;
   /* border-radius: 25px; */
@@ -107,43 +132,61 @@ padding: 5px 10px;
   border: 1px solid #006363;
   box-shadow: 2px 2px 5px 1px #11111153;
   transition: all 0.5s ease;
-  &:hover{
-    transform:scale(1.1) ;
+  &:hover {
+    transform: scale(1.1);
     background: #06d6d6dc;
     color: #4d4d4de6;
     font-weight: bold;
   }
-`
-const Amount=styled.span`
-width:30px;
-height:30px;
-border-radius:10px;
-border:1px solid teal;
-display:flex;
-align-items:center;
-justify-content:center;
-margin:0px 5px;
-`
+`;
+const Amount = styled.span`
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid teal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 5px;
+`;
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+  const [color, setColor] = useState([]);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get("/products/find/" + id);
+       setProduct(res.data);
+       setColor(res.data.color);
+      } catch (err) {}
+    };
+    getProduct();
+  }, [id]);
+  console.log(product);
   return (
     <Container>
       <Announcements />
       <Navbar />
       <Wrapper>
         <ImgContainer>
-          <Img src="/images/etegi-lastikli-tesettur-kap-tsd0080-indigo-93286-12-B.jpg" />
+          <Img src={product.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Skirt Elastic Hijab Women-Jackets</Title>
-          <Desc>New Season skirt Elastic Hijab Women-Jackets  model is. Front button with closes. The product color may be toned due to the Lighting in place.</Desc>
-          <Price>200 QR</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>{product.price} QAR</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black"/>
-              <FilterColor color="Blue"/>
-              <FilterColor color="Red"/>
+              {color.map(color=>
+
+              <FilterColor color={color} />
+              )}
+              
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
@@ -158,9 +201,9 @@ const Product = () => {
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove/>
+              <Remove />
               <Amount>1</Amount>
-              <Add/>
+              <Add />
             </AmountContainer>
             <Button>ADD TO CART</Button>
           </AddContainer>

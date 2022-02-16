@@ -48,7 +48,7 @@ const SearchContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-inline:20px;
-  display:${props=>props.usercheck.user==="notLoggedIn" ? "none":"block"};
+  display:${props=>props.usercheck.user==="notLoggedIn" ? "none":"flex"};
 `
 const Center = styled.div`
   flex: 3;
