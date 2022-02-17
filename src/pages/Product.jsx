@@ -148,25 +148,41 @@ const Amount = styled.span`
   align-items: center;
   justify-content: center;
   margin: 0px 5px;
+  font-size: 24px;
 `;
 
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
-  const [color, setColor] = useState([]);
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
+  const [color, setColor] = useState(null);
+  const [size, setSize] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const getProduct = async () => {
       try {
         const res = await publicRequest.get("/products/find/" + id);
        setProduct(res.data);
-       setColor(res.data.color);
+       setColors(res.data.color);
+       setSizes(res.data.size);
+       setColor(res.data.color[0])
+       setSize(res.data.size[0]);
       } catch (err) {}
     };
     getProduct();
   }, [id]);
-  console.log(product);
+  
+  const handleQuantity=(type)=>{
+    type==="dec"?quantity>1 && setQuantity(quantity-1):setQuantity(quantity+1);
+  }
+  
+  const handleClick=()=>{
+    
+  }
+  
   return (
     <Container>
       <Announcements />
@@ -182,30 +198,29 @@ const Product = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              {color.map(color=>
+              {colors?.map(color=>
 
-              <FilterColor color={color} />
+              <FilterColor color={color} key={color} onClick={()=>setColor(color)}/>
               )}
               
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XL</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>XS</FilterSizeOption>
+              <FilterSize onChange={(e)=>setSize(e.target.value.toLowerCase())}>
+               {sizes?.map(size=>(
+
+                <FilterSizeOption key={size}>{size.toUpperCase()} </FilterSizeOption>
+               ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
+              <Remove cursor="pointer" onClick={()=>handleQuantity("dec")}/>
+              <Amount>{quantity}</Amount>
+              <Add cursor="pointer" onClick={()=>handleQuantity("inc")}/>
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
