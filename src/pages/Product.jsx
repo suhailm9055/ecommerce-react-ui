@@ -8,6 +8,8 @@ import Newsletter from "../components/Newsletter";
 import { mobile, tablet } from "../Responsive";
 import { useLocation } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/cartRedux";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -160,7 +162,7 @@ const Product = () => {
   const [color, setColor] = useState(null);
   const [size, setSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
-
+  const dispatch = useDispatch()
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -180,9 +182,11 @@ const Product = () => {
   }
   
   const handleClick=()=>{
-    
-  }
+    dispatch(
+    addProduct({...product,quantity,color,size})
   
+  )
+    }
   return (
     <Container>
       <Announcements />

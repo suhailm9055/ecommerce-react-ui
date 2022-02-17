@@ -9,6 +9,7 @@ import {
 import { Roofing } from "@mui/icons-material";
 import { ListItemAvatar } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { mobile, tablet } from "../Responsive";
 
@@ -104,6 +105,7 @@ const Icons=styled.div`
   ${mobile({ display: "none" })}
 `
 const Footer = () => {
+  const quantity = useSelector(state=>state.cart.quantity);
   return (
     <>
       <Container>

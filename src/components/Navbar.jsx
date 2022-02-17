@@ -3,7 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import Badge from '@mui/material/Badge';
 import { mobile, tablet } from "../Responsive";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   height: 60px;
@@ -91,7 +92,7 @@ const BadgeContainer=styled.div`
   display:${props=>props.usercheck.user==="notLoggedIn" ? "none":"block"};
   `
 const Navbar = (user) => {
-  
+  const quantity = useSelector(state=>state.cart.quantity);
   return (
     <Container>
       <Wrapper>
@@ -127,11 +128,16 @@ const Navbar = (user) => {
         <Right>
           <MenuItem>Register</MenuItem>
           <MenuItem>Sign In</MenuItem>
+          <Link to="/cart">
+          <MenuItem>
+          
          <BadgeContainer usercheck={user}>
-           <Badge badgeContent={4} color="primary">
+           <Badge badgeContent={quantity} color="primary">
       <ShoppingCartOutlined color="black" />
     </Badge>
            </BadgeContainer> 
+          </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>

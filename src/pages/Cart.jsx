@@ -5,6 +5,7 @@ import  Announcements  from '../components/Announcements'
 import  Footer  from '../components/Footer'
 import { Add, Remove } from '@material-ui/icons'
 import { mobile, tablet } from '../Responsive'
+import { useSelector } from 'react-redux';
 const Container=styled.div`
   
 `
@@ -183,6 +184,7 @@ padding: 5px 15px;
 `
 
 const Cart = () => {
+  const cart = useSelector(state=>state.cart)
   return (
     <Container>
       <Announcements/>
@@ -200,51 +202,36 @@ const Cart = () => {
       <Bottom>
 
         <Info>
-          <Product>
-            <ProductDetail>
-              <Image src="https://hijabclothes.com/image/catalog/hooded-open-jacket-tsd1097-blue-86604-14-B.jpg"/>
+          {cart.products.map(product=>(
+
+             <Product>
+              <ProductDetail>
+              <Image src={product.img}/>
               <Details>
-                <ProductName><b>Product:</b>Winter Jacket </ProductName>
-                <ProductId><b>ID:</b>446688 </ProductId>
-                <ProductColor color="#2d437d"/>
-                <ProductSize><b>Size:</b>L</ProductSize>
+              <ProductName><b>Product:</b>{product.title}</ProductName>
+              <ProductId><b>ID:</b>{product._id}</ProductId>
+              <ProductColor color={product.color}/>
+              <ProductSize><b>Size:</b>{product.size}</ProductSize>
               </Details>
-            </ProductDetail>
-            <PriceDetail>
+              </ProductDetail>
+              <PriceDetail>
               <ProductAmountContainer>
-                <Add/>
-                <ProductAmount>2</ProductAmount>
-                <Remove/>
+              <Add/>
+              <ProductAmount>{product.quantity}</ProductAmount>
+              <Remove/>
               </ProductAmountContainer>
-              <ProductPrice>299 QR</ProductPrice>
-            </PriceDetail>
-          </Product>
+              <ProductPrice>{product.price*product.quantity} QR</ProductPrice>
+              </PriceDetail>
+              </Product>
+              ))}
           <Hr></Hr>
-          <Product>
-            <ProductDetail>
-              <Image src="https://hijabclothes.com/image/catalog/hooded-open-jacket-tsd1097-orange-86619-14-B.jpg"/>
-              <Details>
-                <ProductName><b>Product:</b>Winter Jacket </ProductName>
-                <ProductId><b>ID:</b>446688 </ProductId>
-                <ProductColor color="#a12d1d"/>
-                <ProductSize><b>Size:</b>L</ProductSize>
-              </Details>
-            </ProductDetail>
-            <PriceDetail>
-              <ProductAmountContainer>
-                <Add/>
-                <ProductAmount>2</ProductAmount>
-                <Remove/>
-              </ProductAmountContainer>
-              <ProductPrice>299 QR</ProductPrice>
-            </PriceDetail>
-          </Product>
+         
         </Info>
         <Summary>
           <SummaryTitle>ORDER SUMMARY</SummaryTitle>
         <SummaryItem>
           <SummaryItemText>SubTotal</SummaryItemText>
-          <SummaryItemPrice>299 QR</SummaryItemPrice>
+          <SummaryItemPrice>{cart.total} QR</SummaryItemPrice>
         </SummaryItem>
         <SummaryItem>
           <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -256,7 +243,7 @@ const Cart = () => {
         </SummaryItem>
         <SummaryItem type="total">
           <SummaryItemText >Total</SummaryItemText>
-          <SummaryItemPrice>299 QR</SummaryItemPrice>
+          <SummaryItemPrice>{cart.total} QR</SummaryItemPrice>
         </SummaryItem>
         <ButtonContainer>
             <Button>CHECKOUT NOW</Button>
