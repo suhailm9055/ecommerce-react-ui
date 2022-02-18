@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import  Navbar  from '../components/Navbar'
 import  Announcements  from '../components/Announcements'
@@ -6,6 +6,12 @@ import  Footer  from '../components/Footer'
 import { Add, Remove } from '@material-ui/icons'
 import { mobile, tablet } from '../Responsive'
 import { useSelector } from 'react-redux';
+import StripeCheckout from 'react-stripe-checkout'
+import { userRequest } from '../requestMethods'
+import { useHistory } from 'react-router-dom'
+
+
+
 const Container=styled.div`
   
 `
@@ -185,6 +191,33 @@ padding: 5px 15px;
 
 const Cart = () => {
   const cart = useSelector(state=>state.cart)
+  const [stripeToken, setStripeToken] = useState(null)
+  const history = useHistory()
+  
+  const onToken = (token)=>{
+    setStripeToken(token)
+  }
+  console.log(stripeToken)
+  const KEY =process.env.REACT_APP_STRIPE
+   
+
+  useEffect(() => {
+    const makeRequest = async ()=>{
+
+      try{
+        const res = await userRequest.post("/checkout/payment",{
+          tokenId: stripeToken.id,
+          amount: cart.total *100,
+        })
+        history.push("/success",{data:res.data})
+        console.log(res)
+      }catch(err){
+        
+      }
+    }
+   stripeToken && makeRequest();
+  }, [stripeToken,cart.total,history])
+  
   return (
     <Container>
       <Announcements/>
@@ -246,7 +279,19 @@ const Cart = () => {
           <SummaryItemPrice>{cart.total} QR</SummaryItemPrice>
         </SummaryItem>
         <ButtonContainer>
-            <Button>CHECKOUT NOW</Button>
+        <StripeCheckout
+          name="QataRing"
+          image="/ringLogo.png"
+          billingAddress
+          shippingAddress
+          description={`your total is ${cart.total} QA`}
+          amount={cart.total*100}
+          currency="QAR"
+          token={onToken}
+          stripeKey={KEY}
+        >
+          <Button>Checkout Now</Button>
+        </StripeCheckout>
           </ButtonContainer>
         </Summary>
       </Bottom>
