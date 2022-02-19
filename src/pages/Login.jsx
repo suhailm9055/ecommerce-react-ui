@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { mobile, tablet } from "../Responsive";
 import Navbar from "../components/Navbar";
+import { login } from "../redux/apiCalls";
+import { useDispatch } from "react-redux";
 
 const Container=styled.div`
 width:100vw;
@@ -103,6 +105,14 @@ ${mobile({fontSize:"14px"})}
 `
 
 const Login = () => {
+const [username, setUsername] = useState("")
+const [password, setPassword] = useState("")
+const dispatch = useDispatch()
+const handleClick =(e)=>{
+  e.preventDefault()
+  login(dispatch,{username,password})
+}
+
   return (
     <>
       <Navbar user="notLoggedIn"/>
@@ -110,12 +120,12 @@ const Login = () => {
         <Wrapper>
             <Title>SIGN IN</Title>
             <Form>
-                <Input placeholder="Username or Email"/>
-                <Input placeholder="Password"/>
+                <Input placeholder="Username or Email" onChange={(e)=>setUsername(e.target.value)}/>
+                <Input type="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)}/>
            
 
-            <ButtonContainer>
-           <Button>LOG IN</Button>
+            <ButtonContainer onClick={handleClick}>
+           <Button >LOG IN</Button>
 
             </ButtonContainer>
             <LinkContainer>
