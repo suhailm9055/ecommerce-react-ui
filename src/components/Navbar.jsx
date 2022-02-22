@@ -127,7 +127,9 @@ const Navbar = (user) => {
 
         <Right>
           <MenuItem>Register</MenuItem>
+          <Link to='/login'>
           <MenuItem>Sign In</MenuItem>
+          </Link>
           <Link to="/cart">
           <MenuItem>
           

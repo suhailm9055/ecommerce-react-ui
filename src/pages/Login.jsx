@@ -3,7 +3,43 @@ import styled from "styled-components";
 import { mobile, tablet } from "../Responsive";
 import Navbar from "../components/Navbar";
 import { login } from "../redux/apiCalls";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+
+const Button=styled.button`
+
+padding: 5px 15px;
+padding-top: 7px;
+font-size: 20px;
+letter-spacing: 1px;
+/* border-radius: 25px; */
+font-weight: 500;
+background: #008080;
+color: #fff;
+text-align: center;
+cursor: pointer;
+border-radius:4px;
+border: 1px solid #006363;
+box-shadow: 2px 2px 5px 1px #11111153;
+transition: all 0.5s ease;
+&:hover{
+    transform:scale(1.1) ;
+    background: #06d6d6dc;
+    color: #4d4d4de6;
+    font-weight: bold;
+    
+}
+${mobile({width:"120px"})};
+&:disabled{
+  font-weight: 200;
+      color:#ffffff65;
+      cursor:progress;
+      background: #008080be;
+      transform:scale(1)
+    }
+    
+`
+
 
 const Container=styled.div`
 width:100vw;
@@ -13,7 +49,9 @@ display:flex;
 background-size:center;
 align-items:center;
   justify-content:center;
-`
+ 
+       cursor:${props=>props.isFetching && "progress"};
+         `
 const Wrapper=styled.div`
 width:30%;
 padding:20px;
@@ -64,30 +102,6 @@ align-items:flex-end;
 justify-content:center;
 padding:20px;
 `
-const Button=styled.button`
-
-padding: 5px 15px;
-padding-top: 7px;
-font-size: 20px;
-letter-spacing: 1px;
-/* border-radius: 25px; */
-font-weight: 500;
-background: #008080;
-color: #fff;
-text-align: center;
-cursor: pointer;
-border-radius:4px;
-border: 1px solid #006363;
-box-shadow: 2px 2px 5px 1px #11111153;
-transition: all 0.5s ease;
-&:hover{
-    transform:scale(1.1) ;
-    background: #06d6d6dc;
-    color: #4d4d4de6;
-    font-weight: bold;
-}
-${mobile({width:"120px"})}
-`
 
 const LinkContainer=styled.div`
     display:flex;
@@ -103,29 +117,43 @@ text-decoration:underline;
 cursor:pointer;
 ${mobile({fontSize:"14px"})}
 `
+const Error =styled.p`
+font-size: 22px;
+color:red;
+text-align:center;`
+const Success =styled.p`
+font-size: 22px;
+color:green;
+text-align:center;`
+
 
 const Login = () => {
 const [username, setUsername] = useState("")
 const [password, setPassword] = useState("")
+const {isFetching, error,currentUser} = useSelector((state)=>state.user)
+
 const dispatch = useDispatch()
 const handleClick =(e)=>{
   e.preventDefault()
   login(dispatch,{username,password})
 }
+console.log(isFetching)
 
   return (
     <>
       <Navbar user="notLoggedIn"/>
-    <Container>
+    <Container isFetching={isFetching}>
         <Wrapper>
+            {error && <Error>Something went wrong..!</Error>}
+            {currentUser && !error && <Success>logged in successfully.</Success>}
             <Title>SIGN IN</Title>
             <Form>
                 <Input placeholder="Username or Email" onChange={(e)=>setUsername(e.target.value)}/>
                 <Input type="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)}/>
            
 
-            <ButtonContainer onClick={handleClick}>
-           <Button >LOG IN</Button>
+            <ButtonContainer >
+           <Button onClick={handleClick} disabled={isFetching} >LOG IN</Button>
 
             </ButtonContainer>
             <LinkContainer>
