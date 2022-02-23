@@ -15,9 +15,10 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function App() {
-  const user = false;
+  const user = useSelector(store=>store.user.currentUser);
   return (
    <Router>
      <Switch>
