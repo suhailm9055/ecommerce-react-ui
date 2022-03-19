@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { mobile, tablet } from "../Responsive";
 import Navbar from "../components/Navbar";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/apiCalls";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -91,6 +93,19 @@ const Button = styled.button`
 ;
 
 const Register = () => {
+  const [user, setUser] = useState({})
+const dispatch = useDispatch()
+  const handleChange =(e)=>{
+
+    setUser((prev)=>{
+      return {...prev,[e.target.name]:e.target.value}
+    })
+  }
+
+  const handleSubmit = ()=>{
+register(dispatch,user);
+  }
+
   return (
     <>
       <Navbar user="notLoggedIn"/>
@@ -98,19 +113,19 @@ const Register = () => {
       <Wrapper>
         <Title>CREATE NEW ACCOUNT</Title>
         <Form>
-          <Input placeholder="First Name" />
-          <Input placeholder="Last Name" />
-          <Input placeholder="Username" />
-          <Input placeholder="Email" />
-          <Input placeholder="Password" />
-          <Input placeholder="Confirm Password" />
+          <Input type="text" placeholder="First Name" name="firstname" onChange={handleChange}/>
+          <Input type="text" placeholder="Last Name" name="lastname" onChange={handleChange}/>
+          <Input type="text" placeholder="Username" name="username" onChange={handleChange}/>
+          <Input type="email"  placeholder="Email" name="email" onChange={handleChange}/>
+          <Input type="password" placeholder="Password" name="password" onChange={handleChange} />
+          <Input type="password" placeholder="Confirm Password" name="confirmpassword" onChange={handleChange}/>
           <Agreement>
             By Creating an account, I consent to the processing of my personal
             data in accordance with the <b> PRIVACY POLICY</b>
           </Agreement>
 
           <ButtonContainer>
-            <Button>CREATE ACCOUNT</Button>
+            <Button onClick={handleSubmit}>CREATE ACCOUNT</Button>
           </ButtonContainer>
         </Form>
       </Wrapper>

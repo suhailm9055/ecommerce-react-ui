@@ -133,19 +133,21 @@ const [password, setPassword] = useState("")
 const {isFetching, error,currentUser} = useSelector((state)=>state.user)
 
 const dispatch = useDispatch()
-const handleClick =(e)=>{
+const handleClick = async (e)=>{
   e.preventDefault()
   login(dispatch,{username,password})
+  const users = await JSON.parse(localStorage.getItem("persist:root"))?.user;
+  
 }
 console.log(isFetching)
 
   return (
     <>
-      <Navbar user="notLoggedIn"/>
+      <Navbar user="notLoggedIn" />
     <Container isFetching={isFetching}>
         <Wrapper>
-            {error && <Error>Something went wrong..!</Error>}
-            {currentUser && !error && <Success>logged in successfully.</Success>}
+            {/* {error && <Error>Something went wrong..!</Error>} */}
+            {/* {currentUser && !error && <Success>logged in successfully.</Success>} */}
             <Title>SIGN IN</Title>
             <Form>
                 <Input placeholder="Username or Email" onChange={(e)=>setUsername(e.target.value)}/>
