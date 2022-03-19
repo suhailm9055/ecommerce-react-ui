@@ -50,7 +50,7 @@ background-size:center;
 align-items:center;
   justify-content:center;
  
-       cursor:${props=>props.isFetching && "progress"};
+       
          `
 const Wrapper=styled.div`
 width:30%;
@@ -101,6 +101,7 @@ display:flex;
 align-items:flex-end;
 justify-content:center;
 padding:20px;
+cursor:${props=>props.isFetching && "progress"};
 `
 
 const LinkContainer=styled.div`
@@ -119,7 +120,8 @@ ${mobile({fontSize:"14px"})}
 `
 const Error =styled.p`
 font-size: 22px;
-color:red;
+font-weight:500;
+color:#bc0000;
 text-align:center;`
 const Success =styled.p`
 font-size: 22px;
@@ -128,33 +130,59 @@ text-align:center;`
 
 
 const Login = () => {
-const [username, setUsername] = useState("")
-const [password, setPassword] = useState("")
+  
+const [username, setUsername] = useState(null)
+const [password, setPassword] = useState(null)
 const {isFetching, error,currentUser} = useSelector((state)=>state.user)
+const [validation,setValidation]=useState(null)
 
 const dispatch = useDispatch()
 const handleClick = async (e)=>{
   e.preventDefault()
-  login(dispatch,{username,password})
-  const users = await JSON.parse(localStorage.getItem("persist:root"))?.user;
-  
+  if(username!==""){
+    if(password!==""){
+  if(username.length>2 ){
+  if(password.length>2 ){
+
+    login(dispatch,{username,password})
+    
+    setValidation(error)
+  }else{
+    setValidation("Password must be min of 3 characters")
+
+  }
+
+   
+  }else {
+    setValidation("Username must be min of 3 characters")
+  }
+}else{
+  setValidation("Please do Check the password")
 }
-console.log(isFetching)
+}else{
+    setValidation("Please do Check the username")
+
+  }
+}
+console.log(error)
 
   return (
     <>
       <Navbar user="notLoggedIn" />
-    <Container isFetching={isFetching}>
+    <Container >
         <Wrapper>
-            {/* {error && <Error>Something went wrong..!</Error>} */}
+            {/* {error && <Error>{error}</Error>} */}
             {/* {currentUser && !error && <Success>logged in successfully.</Success>} */}
+                {validation && <Error>{validation}</Error>}
             <Title>SIGN IN</Title>
             <Form>
-                <Input placeholder="Username or Email" onChange={(e)=>setUsername(e.target.value)}/>
+                <Input placeholder="Username" onChange={(e)=>setUsername(e.target.value)}/>
+                {username==="" && <Error>Username must NOT be empty</Error>}
                 <Input type="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)}/>
-           
+                {password==="" && <Error>Password must NOT be empty</Error>}
 
-            <ButtonContainer >
+
+            <ButtonContainer isFetching={isFetching} >
            <Button onClick={handleClick} disabled={isFetching} >LOG IN</Button>
 
             </ButtonContainer>

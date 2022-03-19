@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux"
 import { publicRequest } from "../requestMethods";
 import { loginFailure, loginStart, loginSuccess, logoutsuccess, RegisterFailure, RegisterStart, RegisterSuccess } from "./userRedux"
@@ -6,9 +7,11 @@ export const login = async ( dispatch,user)=>{
     dispatch(loginStart());
     try{
         const res = await publicRequest.post("/auth/login",user)
+        
         dispatch(loginSuccess(res.data))
     }catch(err){
-        dispatch(loginFailure())
+        // const res = await publicRequest.post("/auth/login",user)
+        dispatch(loginFailure(err.response.data))
         console.log(err);
 
     }
