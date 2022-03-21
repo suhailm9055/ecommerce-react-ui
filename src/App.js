@@ -16,6 +16,8 @@ import {
   Redirect
 } from "react-router-dom";
 import { useSelector } from "react-redux";
+import MobileLogin from "./pages/MobileLogin";
+import GoogleLogin from "./pages/GoogleLogin";
 
 function App() {
   const user = useSelector(store=>store.user.currentUser);
@@ -34,8 +36,16 @@ function App() {
     <Route  path="/productList/:category">
     <ProductList/>
     </Route>
-    <Route  path="/login">
+    <Route exact path="/login">
       {user?<Redirect to="/"/>:<Login/>}
+    
+    </Route>
+    <Route  path="/login/mobile">
+    {user?<Redirect to="/"/>:<MobileLogin/>}
+    
+    </Route>
+    <Route  path="/login/google">
+    {user?<Redirect to="/"/>:<GoogleLogin/>}
     
     </Route>
     <Route  path="/register">

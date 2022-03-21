@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { mobile, tablet } from "../Responsive";
 import Navbar from "../components/Navbar";
-// import googleLogin from "../components/google/Login";
-// import GLogin from "../components/google/Login";
-import { Googlelogin, login } from "../redux/apiCalls";
+import { login, mobileLogin, OTPLogin } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { Divider } from "@material-ui/core";
 import { SafetyDivider } from "@mui/icons-material";
@@ -14,7 +12,7 @@ import { refreshTokenSetup } from '../components/google/refreshToken';
 
 
 const Button = styled.button`
-  padding: ${(props) => (props.google ? "0" : "5px 15px")};
+    padding: ${(props) => (props.google ? "0" : "5px 15px")};
   padding-top: ${(props) => (props.google ? "0" : "7px")};
   font-size: 20px;
   letter-spacing: 1px;
@@ -132,41 +130,43 @@ const Success = styled.p`
 `;
 const clientId =
   "638909240637-lj43pimncaemvl2eovmrnb2srcpii0e8.apps.googleusercontent.com";
-const Login = () => {
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
-  const { isFetching, error, currentUser } = useSelector((state) => state.user);
+const MobileLogin = () => {
+  const [mobile, setMobile] = useState(null);
+  const [otp, setotp] = useState(null);
+  const { isFetching, error, currentUser, mobileUser } = useSelector(
+    (state) => state.user
+  );
+
+  const [statusState, setStatusState] = useState(null);
   const [validation, setValidation] = useState(null);
 
   const dispatch = useDispatch();
-  const handleClick = async (e) => {
+  const handleMobileClick = async (e) => {
     e.preventDefault();
-    if (username !== "") {
-      if (password !== "") {
-        if (username.length > 2) {
-          if (password.length > 2) {
-            await login(dispatch, { username, password });
-            setValidation(null);
-          } else {
-            setValidation("Please do Check the password");
-          }
-        } else {
-          setValidation("Please do Check the username");
-        }
-      } else {
-        setValidation("Please do Check the password");
-      }
+
+    if (mobile?.length == 10) {
+      await mobileLogin(dispatch,  mobile );
+      setStatusState(mobileUser);
+     
     } else {
-      setValidation("Please do Check the username");
+      setValidation("Please do Check the mobile");
     }
   };
 
-  const sampleClick = async () => {
-    await login(dispatch, { username: "admin2", password: "123456" });
-  };
+  const handleOtpClick =async (e)=>{
+    e.preventDefault()
+    if (otp?.length == 4) {
+      await OTPLogin(dispatch, {mobile, otp });
+      setValidation(null);
+      setStatusState(mobileUser);
+      console.log(statusState);
+    } else {
+      setValidation("Please do Check the otp");
+    }
+    
+  }
   const onSuccess = (res) => {
     console.log("Login Success: currentUser:", res.profileObj);
-    Googlelogin(dispatch,res.profileObj)
     alert(
       `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
     );
@@ -177,76 +177,63 @@ const Login = () => {
     console.log("Login failed: res:", res);
     alert(`Failed to login.`);
   };
+  console.log(statusState);
   return (
     <>
       <Navbar user="notLoggedIn" />
       <Container>
         <Wrapper>
-          {error && !validation && <Error>{error}</Error>}
+          {validation && <Error>{validation}</Error>}
 
           <Title>SIGN IN</Title>
           <Form>
             <Input
-              placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
+              type="number"
+              placeholder="mobile"
+              onChange={(e) => setMobile(e.target.value)}
             />
-            {username === "" ? (
+
+            {mobile !== null && (
               <>
-                {" "}
-                {username === "" && <Error>Username must NOT be empty</Error>}
-              </>
-            ) : (
-              <>
-                {username?.length <= 2 && (
-                  <Error>Username must be min of 3 characters</Error>
-                )}
-              </>
-            )}
-            <Input
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {password === "" ? (
-              <>
-                {password === "" && <Error>Password must NOT be empty</Error>}
-              </>
-            ) : (
-              <>
-                {" "}
-                {password?.length <= 2 && (
-                  <Error>Password must be min of 3 characters</Error>
+                {mobile?.length !== 10 && (
+                  <Error>Kindly Enter a valid mobile number</Error>
                 )}
               </>
             )}
 
-            <ButtonContainer isFetching={isFetching}>
-              <Button onClick={handleClick} disabled={isFetching}>
-                LOG IN
-              </Button>
-            </ButtonContainer>
-            <LinkContainer>
-              <Link
-                to="/register"
-                style={{
-                  color: "inherit",
-                  textDecoration: "underline",
-                  fontSize: "20px",
-                }}
-              >
-                CREATE A NEW ACCOUNT
-              </Link>
-              <Link
-                onClick={sampleClick}
-                style={{
-                  color: "blue",
-                  textDecoration: "underline",
-                  fontSize: "20px",
-                }}
-              >
-                Sample login
-              </Link>
-            </LinkContainer>
+            {statusState && (
+              <>
+                <Input
+                  type="mobile"
+                  placeholder="otp"
+                  onChange={(e) => setotp(e.target.value)}
+                />
+                {otp === "" ? (
+                  <>{otp === "" && <Error>Kindly Enter the OTP</Error>}</>
+                ) : (
+                  <>
+                    {" "}
+                    {otp?.length !== 4 && (
+                      <Error>otp must be of 4 numbers</Error>
+                    )}
+                  </>
+                )}
+              </>
+            )}
+
+            {statusState ? (
+              <ButtonContainer isFetching={isFetching}>
+                <Button onClick={handleOtpClick} disabled={isFetching}>
+                  Verify OTP
+                </Button>
+              </ButtonContainer>
+            ) : (
+              <ButtonContainer isFetching={isFetching}>
+                <Button onClick={handleMobileClick} disabled={isFetching}>
+                  Send OTP
+                </Button>
+              </ButtonContainer>
+            )}
           </Form>
           <Divider />
           <h3 style={{ textAlign: "center", fontWeight: "300" }}>OR</h3>
@@ -255,7 +242,7 @@ const Login = () => {
           >
             <ButtonContainer>
               <Link
-                to="/login/mobile"
+                to="/login"
                 style={{
                   color: "inherit",
                   textDecoration: "underline",
@@ -268,7 +255,7 @@ const Login = () => {
                     color: "#4d4d4de6",
                   }}
                 >
-                  Login with Mobile
+                  Login with Username
                 </Button>
               </Link>
             </ButtonContainer>
@@ -299,4 +286,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default MobileLogin;
