@@ -264,7 +264,7 @@ const Login = () => {
               >
                 <Button
                   style={{
-                    backgroundColor: "#dcdcdd",
+                    backgroundColor: "rgb(255,255,255)",
                     color: "#4d4d4de6",
                   }}
                 >
@@ -276,7 +276,7 @@ const Login = () => {
               <Button
                 google="true"
                 style={{
-                  backgroundColor: "#dcdcdd",
+                  backgroundColor: "rgb(255,255,255)",
                   color: "#4d4d4de6",
                   cursor: "pointer",
                 }}

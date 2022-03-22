@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux"
 import { publicRequest } from "../requestMethods";
-import { googleLogin, loginFailure, loginStart, loginSuccess, logoutsuccess, MobileLoginFailure, MobileLoginStart, MobileLoginSuccess, OTPLoginFailure, OTPLoginStart, OTPLoginSuccess, RegisterFailure, RegisterStart, RegisterSuccess } from "./userRedux"
+import { getUsersFailure, getUsersStart, getUsersSuccess, googleLogin, loginFailure, loginStart, loginSuccess, logoutsuccess, MobileLoginFailure, MobileLoginStart, MobileLoginSuccess, OTPLoginFailure, OTPLoginStart, OTPLoginSuccess, RegisterFailure, RegisterStart, RegisterSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from "./userRedux"
 
 export const login = async ( dispatch,user)=>{
     dispatch(loginStart());
@@ -21,10 +21,13 @@ export const Googlelogin = async ( dispatch,user)=>{
     const userEmail =await publicRequest.post("/users/email",{email:user.email})
 
     if(userEmail.data!== null){
-        dispatch(googleLogin({username:user.name,img:user.imageUrl,firstname:user.givenName,Lastname:user.familyName,...user}));
+        dispatch(googleLogin(userEmail.data[0]));
+        console.log("user",userEmail.data[0]);
+
     }else{
-        const res = await publicRequest.post("/users/addUser",{username:user.name,img:user.imageUrl,firstname:user.givenName,Lastname:user.familyName,...user})
+        const res = await publicRequest.post("/users/addUser",{username:user.name,img:user.imageUrl,firstName:user.givenName,lastName:user.familyName,...user})
         dispatch(googleLogin(res.data));
+        console.log("resadduser",res.data);
     }
    
     
@@ -76,6 +79,29 @@ export const register = async ( dispatch,user)=>{
         dispatch(RegisterSuccess(res.data))
     }catch(err){
         dispatch(RegisterFailure())
+
+    }
+    
+}
+export const getUsers = async (dispatch,id)=>{
+    dispatch(getUsersStart());
+    try{
+        const res = await publicRequest.get(`/users/userdetails/${id}`)
+        console.log("res",res.data);
+        dispatch(getUsersSuccess(res.data))
+    }catch(err){
+        dispatch(getUsersFailure())
+
+    }
+    
+}
+export const updateUser = async (id,user,dispatch)=>{
+    dispatch(updateUserStart());
+    try{
+        const res = await publicRequest.put(`/users/update/${id}`,user)
+        dispatch(updateUserSuccess(id,res.data))
+    }catch(err){
+        dispatch(updateUserFailure())
 
     }
     

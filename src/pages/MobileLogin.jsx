@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { mobile, tablet } from "../Responsive";
 import Navbar from "../components/Navbar";
-import { login, mobileLogin, OTPLogin } from "../redux/apiCalls";
+import { Googlelogin, login, mobileLogin, OTPLogin } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { Divider } from "@material-ui/core";
 import { SafetyDivider } from "@mui/icons-material";
@@ -167,6 +167,8 @@ const MobileLogin = () => {
   }
   const onSuccess = (res) => {
     console.log("Login Success: currentUser:", res.profileObj);
+    Googlelogin(dispatch,res.profileObj)
+
     alert(
       `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
     );
@@ -251,7 +253,7 @@ const MobileLogin = () => {
               >
                 <Button
                   style={{
-                    backgroundColor: "#dcdcdd",
+                    backgroundColor: "rgb(255,255,255)",
                     color: "#4d4d4de6",
                   }}
                 >
@@ -263,7 +265,7 @@ const MobileLogin = () => {
               <Button
                 google="true"
                 style={{
-                  backgroundColor: "#dcdcdd",
+                  backgroundColor: "rgb(255,255,255)",
                   color: "#4d4d4de6",
                   cursor: "pointer",
                 }}

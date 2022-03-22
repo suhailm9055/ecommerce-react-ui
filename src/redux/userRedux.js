@@ -64,12 +64,37 @@ const userSlice = createSlice({
       state.isFetching = false;
       state.error = false;
     },
-    googleLogin: (state,action) => {
+    googleLogin: (state, action) => {
       state.currentUser = action.payload;
       state.isFetching = false;
       state.error = false;
     },
-
+    getUsersStart: (state) => {
+      state.isFetching = true;
+    },
+    getUsersSuccess: (state, action) => {
+      state.isFetching = false;
+      state.currentUser = action.payload;
+      state.error = false;
+    },
+    getUsersFailure: (state, action) => {
+      state.isFetching = false;
+      state.error = action.payload;
+    },
+    updateUserStart: (state) => {
+      state.isFetching = true;
+    },
+    updateUserSuccess: (state, action) => {
+      state.isFetching = false;
+      state.currentUser[
+        state.currentUser.findIndex((item) => item._id === action.payload.id)
+      ] = action.payload.res.data;
+      state.error = false;
+    },
+    updateUserFailure: (state, action) => {
+      state.isFetching = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -87,6 +112,12 @@ export const {
   MobileLoginStart,
   MobileLoginSuccess,
   MobileLoginFailure,
-  googleLogin
+  googleLogin,
+  getUsersStart,
+  getUsersSuccess,
+  getUsersFailure,
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess,
 } = userSlice.actions;
 export default userSlice.reducer;
