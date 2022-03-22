@@ -29,7 +29,8 @@ function App() {
           <Home />
         </Route>
         <Route path="/cart">
-          <Cart />
+          
+          {user ? <Cart /> : <Redirect to="/login" />}
         </Route>
         <Route path="/product/:id">
           <Product />

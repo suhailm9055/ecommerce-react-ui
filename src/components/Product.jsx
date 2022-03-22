@@ -2,8 +2,10 @@ import { red } from "@material-ui/core/colors";
 import { SearchOutlined, ShoppingCartOutlined } from "@material-ui/icons";
 import { FavoriteBorderOutlined } from "@mui/icons-material";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { addProduct } from "../redux/cartRedux";
 
 const Info = styled.div`
 opacity: 0;
@@ -81,15 +83,25 @@ font-weight: 500;
 
 const Product = ({ item }) => {
   
+  const dispatch = useDispatch()
+
+  const cartClick=(product)=>{
+    dispatch(
+    addProduct({...product,quantity:"1",color:"red",size:"M"})
+  
+  )
+    }
   return (
     <>
       <Container>
         <Circle />
         <Image src={item.img} />
         <Info>
+          <Link to="/cart" onClick={()=>cartClick(item)}>
           <Icon>
             <ShoppingCartOutlined />
           </Icon>
+          </Link>
             <Link to={`/product/${item._id}`}>
           <Icon>
             <SearchOutlined />

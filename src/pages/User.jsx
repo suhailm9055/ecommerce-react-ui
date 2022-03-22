@@ -3,7 +3,7 @@ import {
   MailOutline,
   MyLocation,
   PersonOutline,
-  PhoneAndroid
+  PhoneAndroid,
 } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,12 +12,13 @@ import styled from "styled-components";
 import { format } from "timeago.js";
 import Navbar from "../components/Navbar";
 import { getUsers, updateUser } from "../redux/apiCalls";
+import StripeCheckout from "react-stripe-checkout";
 
 const Container = styled.div``;
 const HeadingContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 10px 20px;
 `;
 const Title = styled.h1`
@@ -91,7 +92,8 @@ const UserDetailsContainer = styled.div`
 `;
 const Icon = styled.div``;
 const UserInfo = styled.div`
- font-size: 20px;`;
+  font-size: 20px;
+`;
 const UserEditContainer = styled.div`
   flex: 2;
   padding: 15px 20px;
@@ -116,7 +118,8 @@ const UserEditInputs = styled.div`
   flex: 1;
 `;
 const Label = styled.label`
-font-size: 18px;`;
+  font-size: 18px;
+`;
 const Input = styled.input`
   border: none;
   color: gray;
@@ -124,12 +127,18 @@ const Input = styled.input`
   background-color: #f0ffff;
   height: 20px;
   padding: 10px;
-  border-radius:5px;
+  border-radius: 5px;
   font-size: 18px;
-  &:hover,:focus{
-  box-shadow: 0px 6px 22px -10px #06d6d6dc;
-  outline:none;
-}
+  box-shadow: ${(props) =>
+    props.userError === "true" ? "0px 6px 22px -10px #bc0000" : ""};
+  &:hover,
+  :focus {
+    box-shadow: ${(props) =>
+      props.userError === "true"
+        ? "0px 6px 22px -5px #bc0000"
+        : "0px 6px 22px -10px #06d6d6dc"};
+    outline: none;
+  }
 `;
 const UserEditImg = styled.div`
   display: flex;
@@ -172,7 +181,6 @@ const EditImg = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
- 
 `;
 const ImgButton = styled.div`
   background-color: #fff;
@@ -199,22 +207,27 @@ const ImgButton = styled.div`
     font-weight: bold;
   }
 `;
-const Select =styled.select`
-border: none;
-color: gray;
-background-color: #f0ffff;
-border-bottom: 1px solid #969696ba;
-height: 40px;
-padding: 10px;
-border-radius:5px;
-font-size: 18px;
-&:hover:focus{
-box-shadow: 0px 6px 22px -10px #06d6d6dc;
-outline:none;
-}
-`
-const Option =styled.option`
-`
+const Select = styled.select`
+  border: none;
+  color: gray;
+  background-color: #f0ffff;
+  border-bottom: 1px solid #969696ba;
+  height: 40px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  &:hover:focus {
+    box-shadow: 0px 6px 22px -10px #06d6d6dc;
+    outline: none;
+  }
+`;
+const Error = styled.p`
+  font-size: 22px;
+  font-weight: 600;
+  color: #bc0000;
+  text-align: center;
+`;
+const Option = styled.option``;
 
 const IconSize = "19px";
 const marginInline = "10px";
@@ -222,126 +235,247 @@ const marginInline = "10px";
 const User = () => {
   const location = useLocation();
   const userId = location.pathname.split("/")[2];
-  const alluser = useSelector((state)=>state.user)
-  const user = useSelector((state)=>state.user.currentUser)
-  console.log("user",user);
-  console.log("alluser",alluser);
-  const [userUpdate, setUserUpdate] = useState(user)
-  const dispatch = useDispatch()
-      useEffect(()=>{
-        getUsers(dispatch,userId)
-      },[dispatch])
-  const handleChange=(e)=>{
-    setUserUpdate(prev=>{
-      return {...prev,[e.target.name]:e.target.value}})
+  const checkout = location.pathname?.split("?")[1];
+  const [checkoutState, setCheckoutState] = useState("");
+  const alluser = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const KEY = process.env.REACT_APP_STRIPE;
+  const user = useSelector((state) => state.user.currentUser);
+
+
+
+  const [userUpdate, setUserUpdate] = useState(user);
+  const dispatch = useDispatch();
+
+
+
+
+
+  useEffect(() => {
+    getUsers(dispatch, userId);
+
+  }, [dispatch]);
+  const handleChange = (e) => {
+    setUserUpdate((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+  useEffect(() => {
+  if(checkout==="check"){
+    setCheckoutState("check")
+    console.log("check", checkoutState);
+  }
+},[]);
+
+
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    getUsers(dispatch, userId);
+    updateUser(userId, userUpdate, dispatch);
+  };
+  console.log("email", userUpdate.email);
+
+
+
+
+  function validateEmail($email) {
+    console.log("tesst", $email);
+    const emailReg = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+
+    return emailReg.test($email);
+  }
+
+
+
+  
+  
+  
+  const onToken = (token) => {
+    
+    setStripeToken(token);
+  };
+  
+  
+  const disabledHandler = () => {
+    if (userUpdate?.mobile?.length === 10) {
+      return false;
     }
-    const handleUpdate=(e)=>{
-      e.preventDefault()
-      getUsers(dispatch,userId)
-      updateUser(userId,userUpdate,dispatch)
-    }
-console.log("update",userUpdate);
+  };
+
+
+
   return (
     <>
-    <Navbar/>
-    <Container>
-      <HeadingContainer>
-        <Title>Edit User</Title>
-        <Link to="/adduser">
-          <Button>Create</Button>
-        </Link>
-      </HeadingContainer>
-      <Wrapper>
-        <UserViewContainer>
-          <UserInfoContainer>
-            <Img src={user.img ||
-                  "https://cdn-icons-png.flaticon.com/512/149/149071.png"} />
-            <UserDesc>
-              <UserName>{user.username}</UserName>
-              {/* <UserTitle>Photographer</UserTitle> */}
-            </UserDesc>
-          </UserInfoContainer>
-          <AccountContainer>
-            <AccountTitle>Account Details</AccountTitle>
-            <UserDetailsContainer>
-              <Icon>
-                <PersonOutline
-                  style={{ fontSize: IconSize, marginInline: marginInline }}
-                />
-              </Icon>
-              <UserInfo>{user.username}</UserInfo>
-            </UserDetailsContainer>
-            <UserDetailsContainer>
-              <Icon>
-                <PersonOutline
-                  style={{ fontSize: IconSize, marginInline: marginInline }}
-                />
-              </Icon>
-              <UserInfo>{`${user.firstName} ${user.lastName}`}</UserInfo>
-              
-            </UserDetailsContainer>
-            <UserDetailsContainer>
-              <Icon>
-                <CalendarToday
-                  style={{ fontSize: IconSize, marginInline: marginInline }}
-                ></CalendarToday>
-              </Icon>
-              <UserInfo>registered:{format(user.createdAt)}</UserInfo>
-            </UserDetailsContainer>
-            <UserDetailsContainer>
-              <Icon>
-                <CalendarToday
-                  style={{ fontSize: IconSize, marginInline: marginInline }}
-                ></CalendarToday>
-              </Icon>
-              <UserInfo>Updated:{format(user.updatedAt)}</UserInfo>
-            </UserDetailsContainer>
-          </AccountContainer>
-          <AccountContainer>
-            <AccountTitle>Contact Details</AccountTitle>
-            <UserDetailsContainer>
-              <Icon>
-                <PhoneAndroid
-                  style={{ fontSize: IconSize, marginInline: marginInline }}
-                />
-              </Icon>
-              <UserInfo>{user.mobile}</UserInfo>
-            </UserDetailsContainer>
-            <UserDetailsContainer>
-              <Icon>
-                <MailOutline
-                  style={{ fontSize: IconSize, marginInline: marginInline }}
-                />
-              </Icon>
-              <UserInfo>{user.email}</UserInfo>
-            </UserDetailsContainer>
-            <UserDetailsContainer>
-              <Icon>
-                <MyLocation
-                  style={{ fontSize: IconSize, marginInline: marginInline }}
-                />
-              </Icon>
-              <UserInfo>Calicut | Kerala</UserInfo>
-            </UserDetailsContainer>
-          </AccountContainer>
-        </UserViewContainer>
-        <UserEditContainer>
-          <UserEditTitle>Edit</UserEditTitle>
-          <UserEditWrapper>
-            <UserEditInputs>
-              <Label>Username</Label>
-              <Input type="text" placeholder={user.username} name="username" onChange={handleChange}></Input>
-              <Label>First Name</Label>
-              <Input type="text" placeholder={user.firstName} name="firstName" onChange={handleChange}></Input>
-              <Label>Last Name</Label>
-              <Input type="text" placeholder={user.lastName} name="lastName" onChange={handleChange}></Input>
-              <Label>Email</Label>
-              <Input type="email" placeholder={user.email} name="email" onChange={handleChange}></Input>
-              <Label>phone</Label>
-              <Input type="number" placeholder={user.mobile} name="mobile" onChange={handleChange}></Input>
-              <Label>Address</Label>
-              <Input type="text" placeholder={user.address} name="address" onChange={handleChange}></Input>
-              {/* <Label>Admin</Label>
+      <Navbar />
+      <Container>
+        <HeadingContainer>
+          {userUpdate?.mobile?.length === 10 &&
+          userUpdate?.address &&
+          userUpdate.email ? (
+            <Title>Edit User</Title>
+          ) : (
+            <Error>Kindly Provide your Contact Details</Error>
+          )}
+        </HeadingContainer>
+        <Wrapper>
+          <UserViewContainer>
+            <UserInfoContainer>
+              <Img
+                src={
+                  user.img ||
+                  "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                }
+              />
+              <UserDesc>
+                <UserName>{user.username}</UserName>
+                {/* <UserTitle>Photographer</UserTitle> */}
+              </UserDesc>
+            </UserInfoContainer>
+            <AccountContainer>
+              <AccountTitle>Account Details</AccountTitle>
+              <UserDetailsContainer>
+                <Icon>
+                  <PersonOutline
+                    style={{ fontSize: IconSize, marginInline: marginInline }}
+                  />
+                </Icon>
+                <UserInfo>{user.username}</UserInfo>
+              </UserDetailsContainer>
+              <UserDetailsContainer>
+                <Icon>
+                  <PersonOutline
+                    style={{ fontSize: IconSize, marginInline: marginInline }}
+                  />
+                </Icon>
+                <UserInfo>{`${user.firstName} ${user.lastName}`}</UserInfo>
+              </UserDetailsContainer>
+              <UserDetailsContainer>
+                <Icon>
+                  <CalendarToday
+                    style={{ fontSize: IconSize, marginInline: marginInline }}
+                  ></CalendarToday>
+                </Icon>
+                <UserInfo>registered:{format(user.createdAt)}</UserInfo>
+              </UserDetailsContainer>
+              <UserDetailsContainer>
+                <Icon>
+                  <CalendarToday
+                    style={{ fontSize: IconSize, marginInline: marginInline }}
+                  ></CalendarToday>
+                </Icon>
+                <UserInfo>Updated:{format(user.updatedAt)}</UserInfo>
+              </UserDetailsContainer>
+            </AccountContainer>
+            <AccountContainer>
+              <AccountTitle>Contact Details</AccountTitle>
+              <UserDetailsContainer>
+                <Icon>
+                  <PhoneAndroid
+                    style={{ fontSize: IconSize, marginInline: marginInline }}
+                  />
+                </Icon>
+                <UserInfo>{user.mobile}</UserInfo>
+              </UserDetailsContainer>
+              <UserDetailsContainer>
+                <Icon>
+                  <MailOutline
+                    style={{ fontSize: IconSize, marginInline: marginInline }}
+                  />
+                </Icon>
+                <UserInfo>{user.email}</UserInfo>
+              </UserDetailsContainer>
+              <UserDetailsContainer>
+                <Icon>
+                  <MyLocation
+                    style={{ fontSize: IconSize, marginInline: marginInline }}
+                  />
+                </Icon>
+                <UserInfo>{user.address}</UserInfo>
+              </UserDetailsContainer>
+            </AccountContainer>
+          </UserViewContainer>
+          <UserEditContainer>
+            <UserEditTitle>Edit</UserEditTitle>
+            <UserEditWrapper>
+              <UserEditInputs>
+                <Label>Username</Label>
+                <Input
+                  type="text"
+                  placeholder={user.username}
+                  name="username"
+                  onChange={handleChange}
+                ></Input>
+                <Label>First Name</Label>
+                <Input
+                  type="text"
+                  placeholder={user.firstName}
+                  name="firstName"
+                  onChange={handleChange}
+                ></Input>
+                <Label>Last Name</Label>
+                <Input
+                  type="text"
+                  placeholder={user.lastName}
+                  name="lastName"
+                  onChange={handleChange}
+                ></Input>
+                <Label>Email</Label>
+                {validateEmail(userUpdate?.email) ? (
+                  <Input
+                    userError="false"
+                    type="email"
+                    placeholder={user.email}
+                    name="email"
+                    onChange={handleChange}
+                  ></Input>
+                ) : (
+                  <Input
+                    userError="true"
+                    type="email"
+                    placeholder={user.email}
+                    name="email"
+                    onChange={handleChange}
+                  ></Input>
+                )}
+                <Label>phone</Label>
+                {userUpdate?.mobile?.length === 10 ? (
+                  <Input
+                    userError="false"
+                    type="number"
+                    placeholder={user.mobile}
+                    name="mobile"
+                    onChange={handleChange}
+                  ></Input>
+                ) : (
+                  <Input
+                    userError="true"
+                    type="number"
+                    placeholder={user.mobile}
+                    name="mobile"
+                    onChange={handleChange}
+                  ></Input>
+                )}
+                <Label>Address</Label>
+                {userUpdate?.address ? (
+                  <Input
+                    userError="false"
+                    type="text"
+                    placeholder={user.address}
+                    name="address"
+                    onChange={handleChange}
+                  ></Input>
+                ) : (
+                  <Input
+                    userError="true"
+                    type="text"
+                    placeholder={user.address}
+                    name="address"
+                    onChange={handleChange}
+                  ></Input>
+                )}
+                {/* <Label>Admin</Label>
               {userUpdate.isAdmin ? <Select name="isAdmin" id='isAdmin' onChange={handleChange}>
                <Option value="true" selected>yes</Option>
                <Option value="false" >no</Option>
@@ -353,31 +487,54 @@ console.log("update",userUpdate);
                
                </Select>
                } */}
-            </UserEditInputs>
-            <UserEditImg>
-              <EditImg>
-                <InfoImgHover>
-                  <Label htmlFor="file">
-                    <ImgButton>Upload Image</ImgButton>
-                  </Label>
-                </InfoImgHover>
-                <UploadImg src={userUpdate.img ||
-                  "https://cdn-icons-png.flaticon.com/512/149/149071.png"}></UploadImg>
+              </UserEditInputs>
+              <UserEditImg>
+                <EditImg>
+                  <InfoImgHover>
+                    <Label htmlFor="file">
+                      <ImgButton>Upload Image</ImgButton>
+                    </Label>
+                  </InfoImgHover>
+                  <UploadImg
+                    src={
+                      userUpdate.img ||
+                      "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    }
+                  ></UploadImg>
 
-                <Input
-                  type="file"
-                  id="file"
-                  style={{ display: "none" }}
-                ></Input>
-              </EditImg>
-              <ButtonContainer>
-                <Button onClick={handleUpdate}>Update</Button>
-              </ButtonContainer>
-            </UserEditImg>
-          </UserEditWrapper>
-        </UserEditContainer>
-      </Wrapper>
-    </Container>
+                  <Input
+                    type="file"
+                    id="file"
+                    style={{ display: "none" }}
+                  ></Input>
+                </EditImg>
+                <ButtonContainer>
+                  {checkoutState ? (
+                    <Button disabled={disabledHandler} onClick={handleUpdate}>
+                      <StripeCheckout
+                        name="eShop"
+                        image="/ringLogo.png"
+                        billingAddress
+                        shippingAddress
+                        description={`your total is ${cart.total} QA`}
+                        amount={cart.total * 100}
+                        currency="INR"
+                        token={onToken}
+                        stripeKey={KEY}
+                        disabled={disabledHandler}
+                      >
+                        Update and Checkout Now
+                      </StripeCheckout>
+                    </Button>
+                  ) : (
+                    <Button onClick={handleUpdate}>Update</Button>
+                  )}
+                </ButtonContainer>
+              </UserEditImg>
+            </UserEditWrapper>
+          </UserEditContainer>
+        </Wrapper>
+      </Container>
     </>
   );
 };
