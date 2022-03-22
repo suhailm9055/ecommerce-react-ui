@@ -18,8 +18,14 @@ export const login = async ( dispatch,user)=>{
     
 }
 export const Googlelogin = async ( dispatch,user)=>{
-    const res = await publicRequest. post("/users/addUser",{username:user.name,img:user.imageUrl,firstname:user.givenName,Lastname:user.familyName,...user})
-    dispatch(googleLogin(res.data));
+    const userEmail =await publicRequest.post("/users/email",{email:user.email})
+
+    if(userEmail.data!== null){
+        dispatch(googleLogin({username:user.name,img:user.imageUrl,firstname:user.givenName,Lastname:user.familyName,...user}));
+    }else{
+        const res = await publicRequest.post("/users/addUser",{username:user.name,img:user.imageUrl,firstname:user.givenName,Lastname:user.familyName,...user})
+        dispatch(googleLogin(res.data));
+    }
    
     
 }
