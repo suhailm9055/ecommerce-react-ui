@@ -168,7 +168,7 @@ const Login = () => {
     console.log("Login Success: currentUser:", res.profileObj);
     Googlelogin(dispatch,res.profileObj)
     alert(
-      `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
+      `Logged in successfully welcome ${res.profileObj.name} 😍.`
     );
     refreshTokenSetup(res);
   };
