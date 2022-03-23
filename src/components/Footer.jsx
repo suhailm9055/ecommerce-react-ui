@@ -110,9 +110,9 @@ const Footer = () => {
     <>
       <Container>
         <Left>
-          <Logo>QataRing.qa</Logo>
+          <Logo>E-Shop</Logo>
           <Desc>
-            Ring is an online Fashion & Lifestyle shopping company founded in
+          E-Shop is an online Fashion and Lifestyle shopping company founded in
             Qatar. As of April 2022, Talabat operates in all areas inside Qatar
             and ensures the fastest delivery in the market
           </Desc>
@@ -149,7 +149,7 @@ const Footer = () => {
           <Contactitem>
             <Icons>
               {" "}
-              <Room style={{ marginRight: "10px" }} /></Icons> Doha,Qatar
+              <Room style={{ marginRight: "10px" }} /></Icons> Calicut,Kerala
             
           </Contactitem>
           <Contactitem>
@@ -157,14 +157,14 @@ const Footer = () => {
               {" "}
               <Phone style={{ marginRight: "10px" }} />
             </Icons>
-              +974 1234 5678
+              +91 12345 67890
           </Contactitem>
           <Contactitem>
             <Icons>
               {" "}
               <MailOutline style={{ marginRight: "10px" }} />
             </Icons>
-              ring@qataring.qa
+            Sales@eshop.com
           </Contactitem>
           <Payment src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJT4cLIx-U9ZTPsz_Z6EBE3qjHKxRW5K35-jW2sU3MhpPdaVl8WD1-55D3VJgdkR38fw&usqp=CAU" />
         </Right>

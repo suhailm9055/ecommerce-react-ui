@@ -138,28 +138,20 @@ const Navbar = (user) => {
               to="/"
               style={{ color: "inherit", textDecoration: "inherit" }}
             >
-              {/* <Logo><br/>
-         التوصيل السريع | قطر </Logo> */}
-              <LogoEng>e-Shop </LogoEng>
+             
+              <LogoEng>E-Shop </LogoEng>
             </Link>
           </Center>
         </LogoSearchContainer>
         <Center display="lap" usercheck={user}>
           <Link to="/" style={{ color: "inherit", textDecoration: "inherit" }}>
-            {/* <Logo><br/>
-         التوصيل السريع | قطر </Logo> */}
+          
             <LogoEng>e-Shop </LogoEng>
           </Link>
         </Center>
 
         <Right>
-          {/* <Link to='/register' style={{ color: "inherit", textDecoration: "inherit" }}>
-
-          <MenuItem>Register</MenuItem>
-          </Link>
-          <Link to='/login' style={{ color: "inherit", textDecoration: "inherit" }}>
-          <MenuItem>Sign In</MenuItem>
-          </Link> */}
+         
 
           {currentUser && (
             <MenuItem>
@@ -181,15 +173,12 @@ const Navbar = (user) => {
                       textAlign: "center",
                     }}
                   >
-                    {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-<Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
+                  
                     <Tooltip title="My Cart">
                       <IconButton
                         size="small"
                         sx={{ ml: 0, backgroundColor: "#f4ffff" }}
-                        // aria-controls={open ? 'account-menu' : undefined}
-                        // aria-haspopup="true"
-                        // aria-expanded={open ? 'true' : undefined}
+                      
                       >
                         <BadgeContainer usercheck={user}>
                           <Badge badgeContent={quantity} color="primary">
