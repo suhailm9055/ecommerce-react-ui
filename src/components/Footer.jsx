@@ -113,7 +113,7 @@ const Footer = () => {
           <Logo>E-Shop</Logo>
           <Desc>
           E-Shop is an online Fashion and Lifestyle shopping company founded in
-            Qatar. As of April 2022, Talabat operates in all areas inside Qatar
+            Qatar. As of April 2022, E-shop operates in all areas inside Qatar
             and ensures the fastest delivery in the market
           </Desc>
           <SocialContainer>
