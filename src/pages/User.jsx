@@ -5,7 +5,7 @@ import {
   PersonOutline,
   PhoneAndroid,
 } from "@mui/icons-material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -243,32 +243,23 @@ const User = () => {
   const KEY = process.env.REACT_APP_STRIPE;
   const user = useSelector((state) => state.user.currentUser);
 
-
-
   const [userUpdate, setUserUpdate] = useState(user);
   const dispatch = useDispatch();
 
-
-
-
-
   useEffect(() => {
     getUsers(dispatch, userId);
-
-  }, [dispatch]);
+  }, [dispatch, userId]);
   const handleChange = (e) => {
     setUserUpdate((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-  useEffect(() => {
-  if(checkout==="check"){
-    setCheckoutState("check")
-    console.log("check", checkoutState);
-  }
-},[]);
-
-
+  useLayoutEffect(() => {
+    if (checkout === "check") {
+      setCheckoutState("check");
+      console.log("check", checkoutState);
+    }
+  }, [checkout]);
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -277,9 +268,6 @@ const User = () => {
   };
   console.log("email", userUpdate.email);
 
-
-
-
   function validateEmail($email) {
     console.log("tesst", $email);
     const emailReg = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
@@ -287,24 +275,15 @@ const User = () => {
     return emailReg.test($email);
   }
 
-
-
-  
-  
-  
   const onToken = (token) => {
-    
     setStripeToken(token);
   };
-  
-  
+
   const disabledHandler = () => {
     if (userUpdate?.mobile?.length === 10) {
       return false;
     }
   };
-
-
 
   return (
     <>

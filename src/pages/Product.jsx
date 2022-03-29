@@ -6,9 +6,9 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile, tablet } from "../Responsive";
-import { useLocation } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../redux/cartRedux";
 
 const Container = styled.div``;
@@ -71,13 +71,11 @@ const Filter = styled.div`
   align-items: center;
   background-color: #a7a7a7b9;
   padding: 2% 3%;
-border-radius: 30px;
-
-
+  border-radius: 30px;
 `;
 const FilterColor = styled.div`
-      width: 45px;
-    height: 25px;
+  width: 45px;
+  height: 25px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
   margin: 0px 5px;
@@ -85,17 +83,17 @@ const FilterColor = styled.div`
 const FilterTitle = styled.span`
   font-size: 24px;
   font-weight: 200;
-  margin-right:15%;
+  margin-right: 15%;
   ${mobile({ margin: "0px 10px" })}
 `;
 const FilterSize = styled.select`
-          margin-right: 17px;
-    width: 76px;
-    font-size: 20px;
+  margin-right: 17px;
+  width: 76px;
+  font-size: 20px;
   background-color: #008080;
-    
-    /* border-radius: 15px; */
-    &:hover {
+
+  /* border-radius: 15px; */
+  &:hover {
     transform: scale(1.1);
     background: #06d6d6dc;
     color: #4d4d4de6;
@@ -110,8 +108,8 @@ const AddContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: #a7a7a7b9;
-padding: 2% 5%;
-border-radius: 30px;
+  padding: 2% 5%;
+  border-radius: 30px;
   ${mobile({ width: "90%", marginTop: "30px" })}
   ${tablet({ width: "90%", marginTop: "30px" })}
 `;
@@ -162,31 +160,32 @@ const Product = () => {
   const [color, setColor] = useState(null);
   const [size, setSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const dispatch = useDispatch()
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
   useEffect(() => {
     const getProduct = async () => {
       try {
         const res = await publicRequest.get(`/products/find/${id}`);
-       setProduct(res.data);
-       setColors(res.data.color);
-       setSizes(res.data.size);
-       setColor(res.data.color[0])
-       setSize(res.data.size[0]);
+        setProduct(res.data);
+        setColors(res.data.color);
+        setSizes(res.data.size);
+        setColor(res.data.color[0]);
+        setSize(res.data.size[0]);
       } catch (err) {}
     };
     getProduct();
   }, [id]);
-  
-  const handleQuantity=(type)=>{
-    type==="dec"?quantity>1 && setQuantity(quantity-1):setQuantity(quantity+1);
-  }
-  
-  const handleClick=()=>{
-    dispatch(
-    addProduct({...product,quantity,color,size})
-  
-  )
-    }
+
+  const handleQuantity = (type) => {
+    type === "dec"
+      ? quantity > 1 && setQuantity(quantity - 1)
+      : setQuantity(quantity + 1);
+  };
+
+  const handleClick = () => {
+    dispatch(addProduct({ ...product, quantity, color, size }));
+    return;
+  };
   return (
     <Container>
       <Announcements />
@@ -202,29 +201,42 @@ const Product = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              {colors?.map(color=>
-
-              <FilterColor color={color} key={color} onClick={()=>setColor(color)}/>
-              )}
-              
+              {colors?.map((color) => (
+                <FilterColor
+                  color={color}
+                  key={color}
+                  onClick={() => setColor(color)}
+                />
+              ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize onChange={(e)=>setSize(e.target.value.toLowerCase())}>
-               {sizes?.map(size=>(
-
-                <FilterSizeOption key={size}>{size.toUpperCase()} </FilterSizeOption>
-               ))}
+              <FilterSize
+                onChange={(e) => setSize(e.target.value.toLowerCase())}
+              >
+                {sizes?.map((size) => (
+                  <FilterSizeOption key={size}>
+                    {size.toUpperCase()}{" "}
+                  </FilterSizeOption>
+                ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove cursor="pointer" onClick={()=>handleQuantity("dec")}/>
+              <Remove cursor="pointer" onClick={() => handleQuantity("dec")} />
               <Amount>{quantity}</Amount>
-              <Add cursor="pointer" onClick={()=>handleQuantity("inc")}/>
+              <Add cursor="pointer" onClick={() => handleQuantity("inc")} />
             </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
+            {user ? (
+              <Link to="/cart">
+                <Button onClick={handleClick}>ADD TO CART</Button>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <Button>ADD TO CART</Button>
+              </Link>
+            )}
           </AddContainer>
         </InfoContainer>
       </Wrapper>
