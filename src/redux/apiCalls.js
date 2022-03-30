@@ -57,7 +57,7 @@ export const Googlelogin = async (dispatch, user) => {
     console.log("resadduser", res.data);
   }
 };
-export const OTPLogin = async (dispatch, { user }) => {
+export const OTPLogin = async (dispatch,  user ) => {
   dispatch(OTPLoginStart());
   try {
     const res = await publicRequest.post("/auth/login/otp", user);

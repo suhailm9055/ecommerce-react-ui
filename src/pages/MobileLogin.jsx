@@ -103,20 +103,20 @@ const ButtonContainer = styled.div`
   cursor: ${(props) => props.isFetching && "progress"};
 `;
 
-const LinkContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-`;
-const Linkstyle = styled.a`
-  width: 100%;
+// const LinkContainer = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   flex-direction: column;
+//   align-items: center;
+// `;
+// const Linkstyle = styled.a`
+//   width: 100%;
 
-  font-size: 16px;
-  text-decoration: underline;
-  cursor: pointer;
-  ${mobile({ fontSize: "14px" })}
-`;
+//   font-size: 16px;
+//   text-decoration: underline;
+//   cursor: pointer;
+//   ${mobile({ fontSize: "14px" })}
+// `;
 const Error = styled.p`
   font-size: 22px;
   font-weight: 500;
@@ -133,9 +133,7 @@ const clientId =
 const MobileLogin = () => {
   const [mobile, setMobile] = useState(null);
   const [otp, setotp] = useState(null);
-  const { isFetching, error, currentUser, mobileUser } = useSelector(
-    (state) => state.user
-  );
+  const { isFetching, mobileUser } = useSelector((state) => state.user);
 
   const [statusState, setStatusState] = useState(null);
   const [validation, setValidation] = useState(null);
