@@ -47,6 +47,7 @@ const Button = styled.button`
 const Container = styled.div`
   width: 100vw;
   height: 90.1vh;
+  
   background: linear-gradient(to right, #adadad97, #2c2c2cd1),
     url("https://images.pexels.com/photos/5704412/pexels-photo-5704412.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
   display: flex;
@@ -55,6 +56,8 @@ const Container = styled.div`
   justify-content: center;
 `;
 const Wrapper = styled.div`
+position: absolute;
+  top: 70px;
   width: 30%;
   padding: 20px;
   background: linear-gradient(#fffdfdb7, #fffdfd3e);

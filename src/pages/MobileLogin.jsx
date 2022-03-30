@@ -53,6 +53,8 @@ const Container = styled.div`
   justify-content: center;
 `;
 const Wrapper = styled.div`
+position: absolute;
+  top: 70px;
   width: 30%;
   padding: 20px;
   background: linear-gradient(#fffdfdb7, #fffdfd3e);

@@ -12,14 +12,21 @@ const Container = styled.div`
   height: 60px;
   background-color: #ffffff;
   color: #2e2e2e;
+  z-index: 99;
   margin-top: auto;
-`;
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  `;
 const Wrapper = styled.div`
   padding: 0px 20px;
+  position: sticky;
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: inherit;
+  z-index: 99;
 `;
 
 const LogoSearchContainer = styled.div`
