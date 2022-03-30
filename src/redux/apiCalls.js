@@ -74,7 +74,7 @@ export const mobileLogin = async (dispatch, mobile) => {
   dispatch(MobileLoginStart());
   console.log(mobile);
   try {
-    const res = await publicRequest.post("/auth/login/mobile", { mobile });
+    const res = await publicRequest.post("/auth/login/mobile",  mobile );
     console.log("res.data", res.data);
 
     dispatch(MobileLoginSuccess(res.data.status));
